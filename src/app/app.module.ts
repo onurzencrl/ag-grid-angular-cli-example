@@ -6,29 +6,23 @@ import { AgGridAngular } from "@ag-grid-community/angular";
 // application
 import { AppComponent } from "./app.component";
 // rich grid
-import { RichGridComponent } from "./rich-grid-example/rich-grid.component";
-import { DateComponent } from "./date-component/date.component";
-import { SortableHeaderComponent } from "./header-component/sortable-header.component";
-import { HeaderGroupComponent } from "./header-group-component/header-group.component";
-import { RendererComponent } from './renderer-component/renderer.component';
-import {ProficiencyFilter} from "./filters/proficiency.component.filter";
-import {SkillFilter} from "./filters/skill.component.filter";
+import { UiModule } from "./ui/ui.module";
+import { AdminModule } from "./admin/admin.module";
+import { CustomerModule } from "./admin/components/customer/customer.module";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
     imports: [
-        BrowserModule,
-        FormsModule,
-        AgGridAngular
-    ],
+    BrowserModule,
+    FormsModule,
+    UiModule,
+    AdminModule,
+    AgGridAngular,
+    CustomerModule,
+    BrowserAnimationsModule,
+],
     declarations: [
         AppComponent,
-        RichGridComponent,
-        DateComponent,
-        SortableHeaderComponent,
-        HeaderGroupComponent,
-        RendererComponent,
-        ProficiencyFilter,
-        SkillFilter
     ],
     bootstrap: [AppComponent]
 })

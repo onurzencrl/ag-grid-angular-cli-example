@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 // for enterprise features
 import { GridApi, Module, ColDef, ColGroupDef, GridReadyEvent, CellClickedEvent, CellDoubleClickedEvent, CellContextMenuEvent, ICellRendererParams } from '@ag-grid-community/core';
 import { ClientSideRowModelModule } from "@ag-grid-community/client-side-row-model";
@@ -25,12 +25,21 @@ import { RangeSelectionModule } from '@ag-grid-enterprise/range-selection';
 // LicenseManager.setLicenseKey(<your key>);
 
 @Component({
-    selector: 'rich-grid',
+    selector: 'ox-rich-grid',
     templateUrl: 'rich-grid.component.html',
     styleUrls: ['rich-grid.css', 'proficiency-renderer.css'],
     encapsulation: ViewEncapsulation.None
 })
 export class RichGridComponent {
+    @Input() columnDefsFromTables: any[] = []; 
+    @Input("bindForEdit")
+    public set bindForEdit(val : any)
+    {
+        console.log(val)
+        // if(val != null)
+            // this.columnDefs = val
+    }
+
     public rowData!: any[];
     public columnDefs!: (ColDef | ColGroupDef)[];
     public rowCount!: string;
@@ -112,6 +121,7 @@ export class RichGridComponent {
                 checkboxSelection: true,
                 filter: false,
                 sortable: false,
+                editable: true,
                 suppressMenu: true,
                 pinned: true
             },
@@ -123,6 +133,7 @@ export class RichGridComponent {
                         field: 'name',
                         width: 150,
                         pinned: true,
+                        editable: true,
                         enableRowGroup: true,
                         enablePivot: true
                     },
@@ -194,6 +205,8 @@ export class RichGridComponent {
                 ]
             }
         ];
+        // console.log(this.columnDefsFromTables)
+        // this.columnDefs = this.columnDefsFromTables
     }
 
     private calculateRowCount() {
