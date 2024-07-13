@@ -213,7 +213,7 @@ nav {
 	background: var(--light);
 	height: 64px;
 	padding: 0 20px;
-	display: flex;
+	display: flex !important;
 	align-items: center;
 	grid-gap: 28px;
 	position: sticky;

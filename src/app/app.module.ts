@@ -19,7 +19,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AdminModule,
     AgGridAngular,
     CustomerModule,
-    BrowserAnimationsModule,
+    BrowserAnimationsModule
+
 ],
     declarations: [
         AppComponent,
