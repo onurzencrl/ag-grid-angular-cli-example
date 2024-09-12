@@ -65,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "ag-grid-angular-cli-example:build:production"
+              "buildTarget": "ag-grid-angular-cli-example:build:production"
             },
             "development": {
-              "browserTarget": "ag-grid-angular-cli-example:build:development"
+              "buildTarget": "ag-grid-angular-cli-example:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -76,7 +76,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ag-grid-angular-cli-example:build"
+            "buildTarget": "ag-grid-angular-cli-example:build"
           }
         },
         "test": {
