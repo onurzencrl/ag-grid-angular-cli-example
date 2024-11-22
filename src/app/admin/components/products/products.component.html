@@ -1,0 +1,247 @@
+<button
+  type="button"
+  class="btn btn-primary"
+  (click)="openModal()"
+  data-toggle="modal"
+  data-target="#exampleModal"
+>
+  Add Row
+</button>
+<button
+  type="button"
+  class="btn btn-primary"
+  (click)="deleteRow()"
+  data-toggle="modal"
+  data-target="#exampleModal"
+>
+  Delete Selected Row
+</button>
+
+<ox-rich-grid
+  [bindForEdit]="columnDefs"
+  [bindForRowData]="rowData"
+  rowSelection="multiple"
+  [class]="themeClass"
+></ox-rich-grid>
+<!-- Modal -->
+<div class="custom-modal" id="customModal">
+  <div class="custom-modal-dialog" role="document">
+    <div class="custom-modal-content">
+      <div class="custom-modal-header">
+        <h5 class="custom-modal-title">Modal title</h5>
+        <button
+          type="button"
+          class="close"
+          (click)="closeModal()"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="custom-modal-body">
+        <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+          <div>
+            <label for="name">Name</label>
+            <input id="name" formControlName="name" type="text" />
+            <div
+              *ngIf="
+                productForm.get('name').invalid &&
+                productForm.get('name').touched
+              "
+            >
+              Name is required
+            </div>
+          </div>
+
+          <div>
+            <label for="description">Description</label>
+            <input id="description" formControlName="description" type="text" />
+          </div>
+
+          <div>
+            <label for="price">Fiyat</label>
+            <input id="price" formControlName="price" type="number" />
+          </div>
+        <div>
+
+            <label for="deletedPrice">Deleted Fiyat</label>
+            <input id="deletedPrice" formControlName="deletedPrice" type="number" />
+          </div>
+
+          <div>
+            <label for="stockQuantity">Stok Adedi</label>
+            <input
+              id="stockQuantity"
+              formControlName="stockQuantity"
+              type="number"
+            />
+          </div>
+
+          <div>
+            <label for="image">Product Image</label>
+            <input id="image" type="file" (change)="onFileSelected($event)" />
+          </div>
+
+          <div>
+            <img
+              [src]="imageUrl"
+              alt="Product Image"
+              style="width: 200px; height: auto"
+            />
+          </div>
+          <div>
+            <label for="Secondimage">Product Image</label>
+            <input
+              id="Secondimage"
+              type="file"
+              (change)="onSecondFileSelected($event)"
+            />
+          </div>
+
+          <div>
+            <img
+              [src]="secondImageUrl"
+              alt="Product Sec Image"
+              style="width: 200px; height: auto"
+            />
+          </div>
+          <div>
+            <label for="dealOfTheDay">Haftanın / günün ürünü</label>
+            <input
+              id="dealOfTheDay"
+              formControlName="dealOfTheDay"
+              type="checkbox"
+            />
+          </div>
+
+          <!-- Toolbar for Quill Editor -->
+          <div quill-editor-toolbar>
+            <span class="ql-formats">
+              <button class="ql-bold" [title]="'Bold'"></button>
+              <button class="ql-italic" [title]="'Italic'"></button>
+              <button class="ql-underline" [title]="'Underline'"></button>
+              <button class="ql-strike" [title]="'Strikethrough'"></button>
+            </span>
+
+            <span class="ql-formats">
+              <select class="ql-header" [title]="'Header'">
+                <option value="1"></option>
+                <option value="2"></option>
+                <option value="3"></option>
+                <option value="4"></option>
+                <option value="5"></option>
+                <option value="6"></option>
+                <option selected></option>
+              </select>
+              <button class="ql-blockquote" [title]="'Blockquote'"></button>
+            </span>
+
+            <span class="ql-formats">
+              <button
+                class="ql-list"
+                value="ordered"
+                [title]="'Ordered List'"
+              ></button>
+              <button
+                class="ql-list"
+                value="bullet"
+                [title]="'Bullet List'"
+              ></button>
+            </span>
+
+            <span class="ql-formats">
+              <button
+                class="ql-indent"
+                value="-1"
+                [title]="'Decrease Indent'"
+              ></button>
+              <button
+                class="ql-indent"
+                value="+1"
+                [title]="'Increase Indent'"
+              ></button>
+            </span>
+
+            <span class="ql-formats">
+              <select class="ql-align" [title]="'Align'">
+                <option selected></option>
+                <option value="center"></option>
+                <option value="right"></option>
+                <option value="justify"></option>
+              </select>
+            </span>
+
+            <span class="ql-formats">
+              <button class="ql-link" [title]="'Link'"></button>
+              <button class="ql-image" [title]="'Image'"></button>
+              <button class="ql-video" [title]="'Video'"></button>
+            </span>
+
+            <span class="ql-formats">
+              <button class="ql-code-block" [title]="'Code Block'"></button>
+              <button class="ql-clean" [title]="'Remove Formatting'"></button>
+            </span>
+          </div>
+
+          <!-- Quill Editor -->
+          <quill-editor
+            formControlName="productDetailText"
+            [modules]="editorModules"
+          ></quill-editor>
+
+          <div>
+            <label for="isDeleted">Is Deleted</label>
+            <input id="isDeleted" formControlName="isDeleted" type="checkbox" />
+          </div>
+          <div>
+            <label for="categoryId"> Category ID</label>
+            <ng-select
+              formControlName="categoryId"
+              [items]="categories"
+              bindLabel="name"
+              bindValue="id"
+              placeholder="Select Product Type"
+            >
+            </ng-select>
+          </div>
+
+          <div>
+            <label for="tagId"> Tag ID</label>
+            <ng-select
+              formControlName="tagId"
+              [items]="productTags"
+              bindLabel="name"
+              bindValue="id"
+              placeholder="Select Product Type"
+            >
+            </ng-select>
+          </div>
+          <div>
+            <label for="productSpecificTagId"> TagSpecific ID</label>
+            <ng-select
+              formControlName="productSpecificTagId"
+              [items]="specificProductTags"
+              bindLabel="name"
+              bindValue="id"
+              placeholder="Select Product Type"
+            >
+            </ng-select>
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-secondary"
+            [disabled]="productForm.invalid"
+            (click)="closeModal()"
+          >
+            Ekle
+          </button>
+        </form>
+      </div>
+      <!-- <div class="custom-modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div> -->
+    </div>
+  </div>
+</div>

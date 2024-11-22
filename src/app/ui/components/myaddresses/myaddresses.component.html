@@ -1,0 +1,111 @@
+<app-top-header style="margin-bottom:150px;"></app-top-header>
+<div class="container" style="margin-top: 35px;">
+  <div class="user-info-container">
+    <div class="res-sidebar">
+    <app-user-info-sidebar></app-user-info-sidebar>
+  </div>
+    <main style="    margin-top: 50px;" class="user-info-content">
+        <div class="address-section">
+            <div class="tabs">
+              <button class="tab active" id="delivery-address-tab">Teslimat Adreslerim</button>
+              <button class="tab" id="billing-address-tab">Fatura Bilgilerim</button>
+            </div>
+          
+            <div class="info">
+              <p>Bu sayfada yapacağınız adres değişiklikleri, daha önce vermiş olduğunuz siparişleri etkilemez. Vermiş olduğunuz siparişlerin adres değişikliğini Siparişlerim alanından gerçekleştirebilirsiniz.</p>
+            </div>
+          
+            <div class="address-list">
+              <button (click)="openAddressPopup()" class="new-address-btn">+ Yeni adres</button>
+          
+              <div *ngFor="let adres of addresses" class="saved-address">
+                <div class="address-details">
+                  <h4>{{adres.titleOfAddress}} <span class="star">★</span></h4>
+                  <p>{{adres.detailedAddress}}</p>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: center;">
+                <button style="margin-right: 20px;" (click)="deleteAddress(adres.id)" class="edit-btn">    <i class="fa fa-trash"></i></button>             
+                <button (click)="editAdress(adres.id)" class="edit-btn">✏️</button>             
+              </div>
+              </div>
+
+              
+            </div>
+          </div>
+          
+    </main>
+  </div>
+</div>
+
+<div *ngIf="showAddressPopup" class="address-popup-overlay">
+    <form [formGroup]="addressForm" (ngSubmit)="onSubmitAddress()">
+      <div class="address-popup-header">
+        <h2>Adres Ekle</h2>
+        <button class="address-popup-close" (click)="closeAddressPopup()">×</button>
+      </div>
+      <!-- Email -->
+      <div class="input-group full-width">
+        <label for="email">E-posta*</label>
+        <input type="email" id="email" formControlName="email" placeholder="E-posta Adresinizi Giriniz">
+      </div>
+    
+      <!-- Ad ve Soyad Yan Yana -->
+      <div class="input-group-row">
+        <div class="input-group half-width">
+          <label for="firstName">Ad*</label>
+          <input type="text" id="firstName" formControlName="firstName" placeholder="Adınızı Giriniz">
+        </div>
+        <div class="input-group half-width">
+          <label for="lastName">Soyad*</label>
+          <input type="text" id="lastName" formControlName="lastName" placeholder="Soyadınızı Giriniz">
+        </div>
+      </div>
+    
+      <!-- Telefon ve İl Yan Yana -->
+      <div class="input-group-row">
+        <div class="input-group half-width">
+          <label for="phone">Telefon*</label>
+          <input type="tel" id="phone" formControlName="phone" placeholder="Telefon Numaranızı Giriniz">
+        </div>
+        <div class="input-group half-width">
+          <div style="width: 100%;">
+            <label for="cityId">Parent City ID</label>
+            <ng-select style="padding-bottom: 0;" formControlName="cityId" [items]="cityList" bindLabel="name" bindValue="id" placeholder="Select Product Type"> </ng-select>
+          </div>
+        </div>
+      </div>
+    
+      <!-- İlçe ve Mahalle Yan Yana -->
+      <div class="input-group-row">
+        <div class="input-group half-width">
+          <div style="width: 100%;">
+            <label for="districtId">Parent District ID</label>
+            <ng-select style="padding-bottom: 0;" formControlName="districtId" [items]="districtList" bindLabel="name" bindValue="id" placeholder="Select Product Type"> </ng-select>
+          </div>
+        </div>
+        <div class="input-group half-width">
+          <div style="width: 100%;">
+            <label for="neighbourhoodId">Parent Neighbourhood ID</label>
+            <ng-select style="padding-bottom: 0;" formControlName="neighbourhoodId" [items]="neighbourhoodList" bindLabel="name" bindValue="id" placeholder="Select Product Type"> </ng-select>
+          </div>
+        </div>
+      </div>
+    
+      <!-- Adres (Tam Genişlik) -->
+      <div class="input-group full-width">
+        <label for="detailedAddress">Adres*</label>
+        <textarea id="detailedAddress" formControlName="detailedAddress" placeholder="Cadde, mahalle, sokak ve diğer bilgileri giriniz"></textarea>
+      </div>
+    
+      <!-- Adres Başlığı (Tam Genişlik) -->
+      <div class="input-group full-width">
+        <label for="address-title">Adres Başlığı*</label>
+        <input type="text" id="address-title" formControlName="titleOfAddress" placeholder="Adres Başlığı Giriniz">
+      </div>
+    
+      <!-- Kaydet Butonu -->
+      <button type="submit" class="address-popup-submit">Kaydet</button>
+    </form>
+    
+  </div>
+  

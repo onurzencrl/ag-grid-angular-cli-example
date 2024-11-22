@@ -95,7 +95,7 @@ button {
   cursor: pointer;
 }
 
-img, ion-icon, button, a { display: block; }
+img, i, button, a { display: block; }
 
 span { display: inline-block; }
 
@@ -333,7 +333,7 @@ body::-webkit-scrollbar-thumb:hover { background: hsl(0, 0%, 70%); }
 
 .modal-close-btn:hover { opacity: 0.9; }
 
-.modal-close-btn ion-icon { --ionicon-stroke-width: 70px; }
+.modal-close-btn i { --ionicon-stroke-width: 70px; }
 
 .newsletter {
   padding: 50px 30px;
@@ -472,7 +472,7 @@ body::-webkit-scrollbar-thumb:hover { background: hsl(0, 0%, 70%); }
   color: var(--sonic-silver);
 }
 
-.toast-close-btn ion-icon { --ionicon-stroke-width: 50px; }
+.toast-close-btn i { --ionicon-stroke-width: 50px; }
 
 .toast-banner {
   width: 70px;
@@ -673,7 +673,7 @@ body::-webkit-scrollbar-thumb:hover { background: hsl(0, 0%, 70%); }
   font-size: 22px;
 }
 
-.menu-close-btn ion-icon { --ionicon-stroke-width: 50px; }
+.menu-close-btn i { --ionicon-stroke-width: 50px; }
 
 .mobile-menu-category-list { margin-bottom: 30px; }
 
@@ -704,7 +704,7 @@ body::-webkit-scrollbar-thumb:hover { background: hsl(0, 0%, 70%); }
 
 .accordion-menu > div { font-size: 14px; }
 
-.accordion-menu ion-icon {
+.accordion-menu i {
   color: var(--onyx);
   --ionicon-stroke-width: 90px;
 }
@@ -1046,7 +1046,7 @@ body::-webkit-scrollbar-thumb:hover { background: hsl(0, 0%, 70%); }
   font-weight: var(--weight-600);
 }
 
-.sidebar-close-btn ion-icon { --ionicon-stroke-width: 50px; }
+.sidebar-close-btn i { --ionicon-stroke-width: 50px; }
 
 .sidebar-accordion-menu {
   width: 100%;
@@ -1083,7 +1083,7 @@ body::-webkit-scrollbar-thumb:hover { background: hsl(0, 0%, 70%); }
   font-weight: var(--weight-500);
 }
 
-.sidebar-accordion-menu ion-icon {
+.sidebar-accordion-menu i {
   color: var(--sonic-silver);
   font-size: 14px;
   --ionicon-stroke-width: 70px;
@@ -1863,7 +1863,7 @@ body::-webkit-scrollbar-thumb:hover { background: hsl(0, 0%, 70%); }
   transition: var(--transition-timing);
 }
 
-.service-icon ion-icon { --ionicon-stroke-width: 25px; }
+.service-icon i { --ionicon-stroke-width: 25px; }
 
 .service-item:hover .service-icon { color: var(--eerie-black); }
 
@@ -2100,7 +2100,7 @@ footer {
   font-size: 25px;
 }
 
-.footer-nav-item .icon-box ion-icon { --ionicon-stroke-width: 30px; }
+.footer-nav-item .icon-box i { --ionicon-stroke-width: 30px; }
 
 .footer-nav .social-link {
   display: -webkit-box;
@@ -2701,7 +2701,7 @@ footer {
             border-radius: 20px;
   }
 
-  .desktop-navigation-menu { display: block; }
+  .desktop-navigation-menu { display: contents; }
 
   .desktop-menu-category-list {
     position: relative;
@@ -2974,8 +2974,13 @@ footer {
 
   .product-featured .countdown-content { padding: 5px 10px; }
 
-  .product-grid { -ms-grid-columns: (1fr)[3]; grid-template-columns: repeat(3, 1fr); }
-
+  .product-grid {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
 
 
   /**
@@ -3102,8 +3107,13 @@ footer {
 
   .product-featured .display-number { --fs-5: 1.125rem; }
 
-  .product-grid { -ms-grid-columns: (1fr)[4]; grid-template-columns: repeat(4, 1fr); }
-
+  .product-grid {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
 
 
   /**

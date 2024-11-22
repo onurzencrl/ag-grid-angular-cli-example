@@ -1,0 +1,94 @@
+
+  
+  .orders-container {
+    display: flex;
+    font-family: Inter,BlinkMacSystemFont,Arial,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif!important;
+    font-size: 14px;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 2.29;
+    letter-spacing: -.15px;
+    color: #484848;
+  }
+  
+  .orders-sidebar {
+    width: 250px;
+    background-color: white;
+    padding: 20px;
+    font-family: Inter,BlinkMacSystemFont,Arial,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif!important;
+    font-size: 14px;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 2.29;
+    letter-spacing: -.15px;
+    color: #484848;
+    height: 100vh;
+  }
+  
+  .profile-user-info {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .profile-avatar {
+    width: 50px;
+    height: 50px;
+    background-color: #ccc;
+    border-radius: 50%;
+    display: inline-block;
+    line-height: 50px;
+    font-size: 24px;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .profile-username {
+    margin-top: 10px;
+    font-weight: bold;
+  }
+  
+  .premium-badge {
+    background-color: #ff4081;
+    color: white;
+    padding: 5px;
+    margin-top: 10px;
+    font-size: 12px;
+    border-radius: 5px;
+  }
+  
+  .orders-menu,
+  .orders-submenu ul,
+  .orders-support ul {
+    list-style: none;
+    margin-top: 20px;
+  }
+  
+  .orders-menu li,
+  .orders-submenu ul li,
+  .orders-support ul li {
+    padding: 10px 0;
+    cursor: pointer;
+    color: #333;
+    display: flex;
+    align-items: center;
+    font-family: Inter,BlinkMacSystemFont,Arial,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif!important;
+
+  }
+  
+  .orders-menu li.active,
+  .orders-submenu ul li.active {
+    font-weight: bold;
+    color: #ff4081;
+  }
+  
+  .menu-icon {
+    margin-right: 10px;
+  }
+  
+  .orders-submenu p {
+    color: #999;
+    font-size: 12px;
+    margin-top: 30px;
+  }

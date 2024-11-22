@@ -1,0 +1,359 @@
+
+<!--
+  - MODAL
+-->
+
+<div class="modal" data-modal>
+  <div class="modal-close-overlay" data-modal-overlay></div>
+
+  <div class="modal-content">
+    <button class="modal-close-btn" data-modal-close>
+      <i class="fa fa-times-circle" aria-hidden="true"></i>
+    </button>
+
+    <div class="newsletter-img">
+      <img
+        src="./assets/frontassets/assets/images/newsletter.png"
+        alt="subscribe newsletter"
+        width="400"
+        height="400"
+      />
+    </div>
+
+    <div class="newsletter">
+      <form action="#">
+        <div class="newsletter-header">
+          <h3 class="newsletter-title">Subscribe Newsletter.</h3>
+
+          <p class="newsletter-desc">
+            Subscribe the <b>Anon</b> to get latest products and discount
+            update.
+          </p>
+        </div>
+
+        <input
+          type="email"
+          name="email"
+          class="email-field"
+          placeholder="Email Address"
+          required
+        />
+
+        <button type="submit" class="btn-newsletter">Subscribe</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!--
+  - NOTIFICATION TOAST
+-->
+
+<app-bought-an-item> </app-bought-an-item>
+
+<!--
+  - HEADER
+-->
+<div id="top"></div>
+<app-top-header> </app-top-header>
+
+<section>
+  <div class="container flex">
+    <div class="left">
+      <div class="slider-container">
+        <div class="main-image">
+          <img [src]="product.imageUrl" class="slide" alt="Main Image" />
+        </div>
+        
+        <div style="overflow: hidden;" class="thumbnail-container">
+          <img *ngFor="let img of images" [src]="img" (click)="changeImage(img)" class="thumbnail" alt="Thumbnail" />
+        </div>
+      </div>
+      
+    </div>
+    <div class="right product-featured">
+      <div class="showcase-content">
+                  
+        <div class="showcase-rating">
+          <i class="fa fa-star" aria-hidden="true"></i>
+          <i class="fa fa-star" aria-hidden="true"></i>
+          <i class="fa fa-star" aria-hidden="true"></i>
+          <i class="fa fa-star" aria-hidden="true"></i>
+          <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+
+        <a href="#">
+          <h3 class="showcase-title">{{product.name}}</h3>
+        </a>
+
+        <p class="showcase-desc">
+          {{product.description}}
+        </p>
+
+        <div class="price-box">
+          <p class="price">{{product.price}} TL</p>
+
+          <del>{{product.deletedPrice}} TL</del>
+        </div>
+        <h5>Number</h5>
+        <div class="add flex1">
+          <span (click)="decreaseQuantity()">-</span>
+          <label>{{ quantity }}</label>
+          <span (click)="increaseQuantity()">+</span>
+        </div>
+        <button class="add-cart-btn" (click)="addBasket(this.product)">add to cart</button>
+
+        <!-- <div class="showcase-status">
+          <div >
+            <p>
+              already sold: <b>20</b>
+            </p>
+
+            <p>
+              available: <b>40</b>
+            </p>
+          </div>
+
+          <div class="showcase-status-bar"></div>
+        </div>
+       -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container" style="margin-bottom:60px; margin-top: 60px;">
+  <div class="product-review-section">
+    <h2 class="review-title">Ürün Değerlendirmeleri</h2>
+    
+    <!-- Review Summary -->
+    <div class="review-summary" *ngIf="comments.length > 0">
+      <span class="star-rating">
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star-half-o checked"></span>
+      </span>
+      <span class="rating-value">{{total}}</span>
+      <span class="rating-count">{{ comments.length }} Değerlendirme</span>
+      <span class="comment-count">{{ comments.length }} Yorum</span>
+    </div>
+
+    <!-- Show a message when there are no comments -->
+    <div class="review-list" *ngIf="comments.length == 0" style="position: relative; padding: 20px;">
+      <div class="review-item no-comments" style="background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(5px); padding: 20px; border-radius: 10px;">
+        <p class="review-text" style="font-size: 18px; text-align: center; color: #555;">
+          Henüz yorum yok. <br> 
+        </p>
+      </div>
+    </div>
+    
+
+    <!-- Review List -->
+    <div class="review-list" *ngIf="comments.length > 0">
+      <div class="review-item" *ngFor="let comment of comments">
+        <div class="review-header">
+          <span class="user-name">{{ comment.userName }}</span>
+          <span class="review-date">{{ comment.date }}</span>
+        </div>
+        <p class="review-text">{{ comment.content }}</p>
+        <div class="review-footer">
+          <span class="seller-info">{{ comment.sellerInfo }}</span>
+          <div class="vote-buttons">
+            <span class="vote-up">👍 ({{ comment.upVotes }})</span>
+            <span class="vote-down">👎 ({{ comment.downVotes }})</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Show more button -->
+    <button *ngIf="comments.length > 0" class="show-more-btn">Tüm Yorumları Göster</button>
+  </div>
+</div>
+
+
+<div class="container" style="margin-bottom:60px; margin-top: 60px;">
+  <h2 class="title">Benzer Ürünler</h2>
+
+  <div class="product-grid">
+    <div  *ngFor="let product of productList">
+    <div class="showcase" *ngIf="TagSpecificType.discount == product.productSpecificTagId">
+
+      <div class="showcase-banner" *ngIf="TagSpecificType.discount == product.productSpecificTagId">
+
+        <img [src]="product.imageUrl" [alt]="product.description" width="300" class="product-img default">
+        <img [src]="product.secondImageUrl" [alt]="product.description" width="300" class="product-img hover">
+
+        <p class="showcase-badge">15%</p>
+
+        <div class="showcase-actions">
+
+          <button class="btn-action">
+            <i class="fa fa-heart" (click)="addFav(product)" aria-hidden="true"></i>
+          </button>
+          <button class="btn-action" [routerLink]="['/product/detail', product.id]">
+            <i class="fa fa-eye" aria-hidden="true"></i>
+          </button>
+
+          <!-- <button class="btn-action">
+            <i class="fa fa-repeat" aria-hidden="true"></i>
+          </button> -->
+
+          <button (click)="addBasket(product)" class="btn-action">
+            <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+          </button>
+
+        </div>
+
+      </div>
+
+      <div class="showcase-content" >
+
+    
+        <a [routerLink]="['/product/detail', product.id]" class="showcase-category">{{product.name}}</a>
+
+        <a [routerLink]="['/product/detail', product.id]">
+          <h3 class="showcase-title">Mens Winter Leathers Jackets</h3>
+        </a>
+
+        <div class="showcase-rating">
+          <i class="fa fa-star" aria-hidden="true"></i>
+          <i class="fa fa-star" aria-hidden="true"></i>
+          <i class="fa fa-star" aria-hidden="true"></i>
+          <i class="fa fa-star" aria-hidden="true"></i>
+          <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+
+        <div class="price-box">
+          <p class="price">{{product.price}}</p>
+          <del>$75.00</del>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="showcase" *ngIf="TagSpecificType.sale == product.productSpecificTagId">
+    
+      <div class="showcase-banner">
+        <img [src]="product.imageUrl" [alt]="product.description" width="300" class="product-img default">
+        <img [src]="product.secondImageUrl" [alt]="product.description" width="300" class="product-img hover">
+    
+        <p class="showcase-badge angle black">sale</p>
+    
+        <div class="showcase-actions">
+
+          <button class="btn-action">
+            <i class="fa fa-heart" (click)="addFav(product)" aria-hidden="true"></i>
+          </button>
+
+          <button class="btn-action" [routerLink]="['/product/detail', product.id]">
+            <i class="fa fa-eye" aria-hidden="true"></i>
+          </button>
+          <!-- <button class="btn-action">
+            <i class="fa fa-repeat" aria-hidden="true"></i>
+          </button> -->
+
+          <button (click)="addBasket(product)" class="btn-action">
+            <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+          </button>
+
+        </div>
+      </div>
+    
+      <div class="showcase-content">
+       
+    
+        <a [routerLink]="['/product/detail', product.id]" class="showcase-category">{{product.name}}</a>
+
+        <a [routerLink]="['/product/detail', product.id]">
+          <h3 class="showcase-title">Mens Winter Leathers Jackets</h3>
+        </a>
+
+        <div class="showcase-rating">
+          <i class="fa fa-star" aria-hidden="true"></i>
+          <i class="fa fa-star" aria-hidden="true"></i>
+          <i class="fa fa-star" aria-hidden="true"></i>
+          <i class="fa fa-star" aria-hidden="true"></i>
+          <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+
+        <div class="price-box">
+          <p class="price">$45.00</p>
+          <del>$56.00</del>
+        </div>
+    
+      </div>
+    
+    </div>
+  </div>
+
+  </div>
+
+
+</div>
+<div class="container" style="margin-bottom:60px; margin-top: 60px;">
+  <div class="tab-content" style="    border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 10px;">
+    <div
+      *ngFor="let content of contents; let i = index"
+      [ngClass]="{ active: selectedTab === i }"
+      class="content"
+    >
+      <h2>{{ content.title }}</h2>
+      <section class="product-details">
+        <div class="product-info">
+            <div class="product-image">
+                <img [src]="product.imageUrl" alt="HC Care Complex Bitkisel Saç Bakım Kompleksi - 100 ml">
+            </div>
+            <div class="product-description">
+                <div>
+                  <p [innerHTML]="product.productDetailText"></p>
+
+                </div>
+            </div>
+        </div>
+    
+        <div class="product-specs">
+            <h3>Ürün Özellikleri</h3>
+            <div class="specs-grid">
+                <div class="spec-item" *ngFor="let item of product.productDetails">
+                    <span>{{item.name}}</span>
+                    <span>{{item.description}}</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    </div>
+  </div>
+</div>
+
+<!-- <div class="container" style="margin-top: 50px; margin-bottom: 50px">
+  <div class="wrapper" style="width: 100%">
+    <div class="tabs">
+      <button
+        *ngFor="let tab of tabs; let i = index"
+        (click)="selectTab(i)"
+        [ngClass]="{ active: selectedTab === i }"
+        class="tab"
+      >
+        <h2 class="title">{{ tab }}</h2>
+      </button>
+
+      <div
+        class="line"
+        [style.width.px]="lineWidth"
+        [style.left.px]="lineLeft"
+      ></div>
+    </div>
+
+  
+  </div>
+</div> -->
+
+<app-footer></app-footer>

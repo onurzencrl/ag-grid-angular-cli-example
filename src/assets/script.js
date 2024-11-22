@@ -2,6 +2,9 @@
 const allDropdown = document.querySelectorAll('#sidebar .side-dropdown');
 const sidebar = document.getElementById('sidebar');
 
+
+
+
 allDropdown.forEach(item=> {
 	const a = item.parentElement.querySelector('a:first-child');
 	a.addEventListener('click', function (e) {
@@ -20,9 +23,6 @@ allDropdown.forEach(item=> {
 		item.classList.toggle('show');
 	})
 })
-
-
-
 
 
 // SIDEBAR COLLAPSE

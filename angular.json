@@ -34,9 +34,17 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "src/assets/frontassets/assets/css/style-prefix.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/ngx-toastr/toastr.css",
               "src/styles.scss"
+
             ],
             "scripts": [
+              "src/assets/frontassets/assets/js/script.js",
+              "src/assets/script.js",
+              "./node_modules/jquery/dist/jquery.min.js",
+              "./node_modules/bootstrap/dist/js/bootstrap.min.js"
 
             ]
           },
@@ -94,12 +102,17 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/assets/frontassets/assets/css/style-prefix.css",
+              "node_modules/ngx-toastr/toastr.css",
               "src/styles.scss"
             ],
             "scripts": [
-              "./assets/script.js",
-              "./frontassets/assets/script.js"
-              
+              "./node_modules/jquery/dist/jquery.min.js",
+              "./node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "src/assets/script.js",
+              "src/assets/frontassets/assets/js/script.js"
+
             ]
           }
         }

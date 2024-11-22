@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductsComponent } from './products.component';
 import { RouterModule } from '@angular/router';
+import { HomePageComponent } from '../home-page/home-page.component';
+import { ProductDetailComponent } from '../product-detail/product-detail.component';
 
 
 
@@ -13,7 +15,8 @@ import { RouterModule } from '@angular/router';
     CommonModule
     ,
     RouterModule.forChild([
-      {path :"x" ,component : ProductsComponent}
+      {path :"" ,component : HomePageComponent},
+      {path :"detail" ,component : ProductDetailComponent}
     ])
   ]
 })

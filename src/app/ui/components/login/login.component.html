@@ -1,0 +1,96 @@
+
+
+
+
+<!--
+  - NOTIFICATION TOAST
+-->
+
+<app-bought-an-item> </app-bought-an-item>
+
+
+
+
+
+<!--
+  - HEADER
+-->
+
+<app-top-header> </app-top-header>
+
+
+
+<div class="auth-container" style="margin-top: 100px;">
+  <div class="auth-tabs">
+    <div class="auth-tab" (click)="selectTab('login')" [class.active]="selectedTab === 'login'">Giriş Yap</div>
+    <div class="auth-tab" (click)="selectTab('register')" [class.active]="selectedTab === 'register'">Üye Ol</div>
+  </div>
+
+  <!-- Giriş Yap Formu -->
+  <form *ngIf="selectedTab === 'login'" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="email">E-Posta</label>
+      <input type="email" id="email" [(ngModel)]="loginEmail" name="email" required />
+    </div>
+    <div class="form-group">
+      <label for="password">Şifre</label>
+      <input type="password" id="password" [(ngModel)]="loginPassword" name="password" required />
+    </div>
+    <a href="#" class="forgot-password">Şifremi Unuttum</a>
+    <button type="submit" class="submit-btn">Giriş Yap</button>
+
+    <div class="social-login">
+      <button  style="background-color: red;" class="submit-btn">Google İle Giriş Yap</button>
+
+    </div>
+  </form>
+
+  <!-- Üye Ol Formu -->
+  <form (submit)="onSubmitUyeOl()" class="my-form" *ngIf="selectedTab === 'register'">
+  
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input 
+            type="text" id="name" name="name" 
+            autocomplete="off" placeholder="Your Name"
+            [(ngModel)]="name" required>
+        <div class="error-message">Name is required</div>
+    </div>
+
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input 
+            type="email" id="email" name="email" 
+            autocomplete="off" placeholder="you@example.com"
+            [(ngModel)]="email" required>
+        <div class="error-message">Email in incorrect format</div>
+    </div>
+
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input 
+            id="password" type="password" 
+            name="password" placeholder="Your password"
+            [(ngModel)]="password"
+            title="Minimum 6 characters at least 1 Alphabet and 1 Number"
+            pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$" required>
+        <div class="error-message">Minimum 6 characters at least 1 Alphabet and 1 Number</div>
+    </div>
+
+    <div class="form-group">
+        <label for="confirm-password">Confirm Password</label>
+        <input 
+            id="confirm-password" type="password" 
+            name="confirm-password" placeholder="Confirm your password"
+            [(ngModel)]="confirmPassword"
+            title="Must match the password"
+            required>
+        <div class="error-message">Passwords do not match</div>
+    </div>
+
+
+    <button type="submit" class="submit-btn">Üye Ol</button>
+
+</form>
+
+ 

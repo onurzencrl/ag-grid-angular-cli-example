@@ -1,1 +1,467 @@
-<p>basket works!</p>
+
+
+<!--
+  - NOTIFICATION TOAST
+-->
+
+<app-bought-an-item> </app-bought-an-item>
+
+<!--
+  - HEADER
+-->
+
+<app-top-header> </app-top-header>
+
+<!-- basket.component.html -->
+<main class="container-basket">
+  <!-- <h1 class="heading">
+      <i class="fa fa-shopping-cart-basket" aria-hidden="true"></i>
+      Shopping cart-basket
+  </h1> -->
+  <div class="container">
+    <div style="margin-bottom: 200px;" class="item-flex">
+      <!-- Product Section (Left) -->
+      <section *ngIf="!showCompleteOrder" class="cart-container">
+        <!-- Sepet Ürünlerini Listele -->
+        <div
+          *ngFor="let item of basketItems; let i = index"
+          class="product-card"
+        >
+          <!-- Checkbox -->
+          <div class="checkbox">
+            <input type="checkbox" id="product-{{ i }}" />
+            <label for="product-{{ i }}"></label>
+          </div>
+
+          <!-- Ürün Resmi -->
+          <div class="product-image">
+            <img [src]="item.product.imageUrl" [alt]="item.product.name" />
+          </div>
+
+          <!-- Ürün Detayları -->
+          <div class="product-details">
+            <h3 class="product-name">{{ item.product.name }}</h3>
+            <p class="product-sale">🔥 Acele Et! + tanesi satıldı</p>
+            <p class="delivery-date">Tahmini Kargoya Teslim:</p>
+          </div>
+
+          <!-- Miktar Kontrolü -->
+          <div class="quantity-control">
+            <button class="decrease-qty" (click)="decrementQuantity(item, i)">
+              -
+            </button>
+            <span class="quantity">{{ item.quantity }}</span>
+            <button class="increase-qty" (click)="incrementQuantity(item, i)">
+              +
+            </button>
+          </div>
+
+          <!-- Ürün Fiyatı -->
+          <div class="product-price">
+            <span>{{ item.product.price.toFixed(2) }} TL</span>
+          </div>
+
+          <!-- Ürünü Sil Butonu -->
+          <div class="remove-product">
+            <button (click)="removeProduct(i)">Sil</button>
+          </div>
+        </div>
+      </section>
+
+      <div *ngIf="showCompleteOrder" class="checkout-container">
+        <div class="tabs">
+          <div
+            class="tab address-tab"
+            [class.active-tab]="selectedTab === 'address'"
+            (click)="selectTab('address')"
+          >
+            <span class="tab-title">Adres Bilgileri</span>
+          </div>
+          <div
+            class="tab payment-tab"
+            [class.active-tab]="selectedTab === 'payment'"
+            (click)="selectTab('payment')"
+          >
+            <span class="tab-title">Ödeme Seçenekleri</span>
+          </div>
+        </div>
+        
+
+        <div class="tab-content">
+          <!-- Address Section -->
+          <!-- Address Section -->
+          <div *ngIf="selectedTab === 'address'">
+            <div class="address-section">
+              <!-- <div class="address-info" *ngFor="let address of addresses">
+          <p><strong>{{ address.titleOfAddress }}</strong></p>
+          <p>{{ address.fullAddress }}</p>
+        </div> -->
+              <div class="payment-info">
+                <p>
+                  Banka/Kredi Kartı veya Alışveriş Kredisi ile ödemenizi güvenle
+                  yapabilirsiniz.
+                </p>
+              </div>
+            </div>
+
+            <!-- Cart Section -->
+            <div class="cart-section">
+              <h3>Sepetimdeki Ürünler ({{ basketItems.length }})</h3>
+              <div class="cart-item" *ngFor="let item of basketItems">
+                <img [src]="item.product.imageUrl" alt="Product Image" />
+                <div class="item-info">
+                  <p>{{ item.product.price | currency : "TRY" }}</p>
+                  <span class="fast-delivery">{{ item.product.name  }} x {{item.quantity}}</span>
+                </div>
+              </div>
+              <div class="corporate-info">
+                <p>
+                  Kurumsal faturalı alışveriş yapmak için
+                  <strong>Kurumsal Adres Ekle</strong> butonunu kullanarak yeni
+                  fatura adresi ekleyin.
+                </p>
+              </div>
+            </div>
+
+            <!-- Delivery Address Section -->
+            <div class="delivery-address-section">
+              <h3>Teslimat Adresi</h3>
+              <div class="add-address">
+                <button
+                  class="btn-confirm"
+                  style="width: 250px"
+                  (click)="AddNewAddress()"
+                >
+                  Yeni Adres Ekle
+                </button>
+              </div>
+              <div class="current-address" *ngFor="let address of addresses">
+                <div class="address-card">
+                  <input
+                    type="radio"
+                    class="custom-radio"
+                    name="address-selection"
+                    [checked]="address.choosedAddress"
+                    (click)="chooseAddress(address.id)"
+                    [value]="address.id"
+                  />
+                  <p>
+                    <strong>{{ address.titleOfAddress }}</strong>
+                  </p>
+                  <p>{{ address.detailedAddress | slice : 0 : 50 }}…</p>
+                  <p>{{ address.city }}/{{ address.district }}</p>
+                  <a class="edit-address" (click)="editAdress(address.id)"
+                    >Düzenle</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Payment Section -->
+          <div *ngIf="selectedTab === 'payment'" class="payment-section">
+            <!-- Kart ile Öde Section (from the image) -->
+            <form style="width: 100%;" [formGroup]="cartInfoForm" >
+              <div class="payment-options">
+                <h3>Kart ile Öde</h3>
+                <div class="card-info">
+                  <label>Kart Sahibi</label>
+                  <input formControlName="cardholderName" type="text" placeholder="Kart Sahibinin Adı" />
+            
+                  <label>Kart Numarası</label>
+                  <input formControlName="cardNumber" type="text" placeholder="Kart Numaranızı Girin" />
+            
+                  <label>Son Kullanma Tarihi</label>
+                  <input formControlName="expirationMonth" type="text" placeholder="Ay" />
+                  <input formControlName="expirationDay" type="text" placeholder="Yıl" />
+            
+                  <label>CVV</label>
+                  <input formControlName="cvv" type="text" placeholder="CVV" />
+            
+                  <label>
+                    <input formControlName="use3DSecure" type="checkbox" /> 3D Secure ile ödemek istiyorum
+                  </label>
+            
+                </div>
+              </div>
+            </form>
+            
+          </div>
+        </div>
+      </div>
+
+      <!-- Checkout Summary (Right) -->
+      <section
+        *ngIf="selectedTab === 'address' && showCompleteOrder"
+        class="checkout-summary"
+      >
+        <h2 class="section-heading">Order Summary</h2>
+         <div class="amount">
+          <div class="summary-item">
+            <span>Ürünün Toplamı</span>
+            <span>{{ getSubtotal() | currency : 'TRY' }}</span>
+          </div>
+        
+          <div class="summary-item">
+            <span>Kargo Toplam</span>
+            <span>{{ getShippingFee() | currency : 'TRY' }}</span>
+          </div>
+        
+          <div class="summary-item total-saving">
+            <span>Toplam Kazancın</span>
+            <span style="color: #00B700;">{{ getTotalDiscount() | currency : 'TRY' }}</span>
+          </div>
+        
+          <div class="summary-total">
+            <span>Toplam</span>
+            <span style="color: #FF6600;">{{ getGrandTotal() | currency : 'TRY' }}</span>
+          </div>
+        </div>
+        <button  (click)="selectTab('payment')" class="btn-confirm" (click)="confirmOrder()">
+          Kaydet ve Devam et
+        </button>
+      </section>
+
+      <section *ngIf="selectedTab === 'payment'" class="checkout-summary">
+        <h2 class="section-heading">Order Summary</h2>
+        <div class="amount">
+          <div class="summary-item">
+            <span>Ürünün Toplamı</span>
+            <span>{{ getSubtotal() | currency : 'TRY' }}</span>
+          </div>
+        
+          <div class="summary-item">
+            <span>Kargo Toplam</span>
+            <span>{{ getShippingFee() | currency : 'TRY' }}</span>
+          </div>
+        
+          <div class="summary-item total-saving">
+            <span>Toplam Kazancın</span>
+            <span style="color: #00B700;">{{ getTotalDiscount() | currency : 'TRY' }}</span>
+          </div>
+        
+          <div class="summary-total">
+            <span>Toplam</span>
+            <span style="color: #FF6600;">{{ getGrandTotal() | currency : 'TRY' }}</span>
+          </div>
+        </div>
+        <button class="btn-confirm" (click)="onSubmitCartInfo()">Ödeme Yap</button>
+      </section>
+
+      <section *ngIf="!showCompleteOrder" class="checkout-summary">
+        <h2 class="summary-heading">Sipariş Özeti</h2>
+        <div class="amount">
+          <div class="summary-item">
+            <span>Ürünün Toplamı</span>
+            <span>{{ getSubtotal() | currency : 'TRY' }}</span>
+          </div>
+        
+          <div class="summary-item">
+            <span>Kargo Toplam</span>
+            <span>{{ getShippingFee() | currency : 'TRY' }}</span>
+          </div>
+        
+          <div class="summary-item total-saving">
+            <span>Toplam Kazancın</span>
+            <span style="color: #00B700;">{{ getTotalDiscount() | currency : 'TRY' }}</span>
+          </div>
+        
+          <div class="summary-total">
+            <span>Toplam</span>
+            <span style="color: #FF6600;">{{ getGrandTotal() | currency : 'TRY' }}</span>
+          </div>
+        </div>
+        
+      
+        <!-- <button class="discount-code">
+            <span>+</span> İNDİRİM KODU GİR
+        </button> -->
+        <div *ngIf="necesseryBasket.couponId == '' || necesseryBasket.couponId == null" style="margin-bottom: 15px;" class="discount-code-container">
+          <input [(ngModel)]="coupenCode"  type="text" class="discount-input" placeholder="İndirim Kodu Gir">
+          <button (click)="applyCoupon(coupenCode)" class="apply-button">Uygula</button>
+      </div>
+
+      <div *ngIf="necesseryBasket.couponId != '' && necesseryBasket.couponId != null" class="coupon-container">
+        <div class="coupon-title">Kupon Uygulandı:</div>
+        <div class="coupon-details">
+          <span class="coupon-id">{{ isCouponExist?.couponCode }}</span> 
+          <!-- <span class="coupon-rate">%{{ isCouponExist?.discountRate }} İndirim</span> -->
+        </div>
+      </div>
+      
+        <button (click)="confirmOrder()" class="btn-confirm">
+            Sepeti Onayla
+        </button>
+    </section>
+    
+    </div>
+  </div>
+  <div class="accountcheck-order-container">
+    <div *ngIf="showPopup" class="accountcheck-popup-overlay">
+      <div class="accountcheck-popup-content">
+        <div class="accountcheck-popup-header">
+          <!-- <span class="accountcheck-popup-icon">!</span> -->
+          <button class="accountcheck-popup-close" (click)="closePopup()">
+            ×
+          </button>
+        </div>
+        <div class="accountcheck-popup-body">
+          <h2> Hesabınız Yok Mu?</h2>
+          <p>
+            Üye olmadan devam edebilir veya giriş yaparak sipariş
+            verebilirsiniz.
+          </p>
+        </div>
+        <div class="accountcheck-popup-footer">
+          <button
+            class="accountcheck-btn-continue"
+            (click)="openAddressPopup()"
+          >
+            Üye Olmadan Devam Et
+          </button>
+          <button class="accountcheck-btn-login" (click)="goToLogin()">
+            Giriş Yap / Üye Ol
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Adres Ekleme Popup -->
+  <div *ngIf="showAddressPopup" class="address-popup-overlay">
+    <form [formGroup]="addressForm" (ngSubmit)="onSubmitAddress()">
+      <div class="address-popup-header">
+        <h2>Adres Ekle</h2>
+        <button class="address-popup-close" (click)="closeAddressPopup()">
+          ×
+        </button>
+      </div>
+      <!-- Email -->
+      <div class="input-group full-width">
+        <label for="email">E-posta*</label>
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          placeholder="E-posta Adresinizi Giriniz"
+        />
+      </div>
+
+      <!-- Ad ve Soyad Yan Yana -->
+      <div class="input-group-row">
+        <div class="input-group half-width">
+          <label for="firstName">Ad*</label>
+          <input
+            type="text"
+            id="firstName"
+            formControlName="firstName"
+            placeholder="Adınızı Giriniz"
+          />
+        </div>
+        <div class="input-group half-width">
+          <label for="lastName">Soyad*</label>
+          <input
+            type="text"
+            id="lastName"
+            formControlName="lastName"
+            placeholder="Soyadınızı Giriniz"
+          />
+        </div>
+      </div>
+
+      <!-- Telefon ve İl Yan Yana -->
+      <div class="input-group-row">
+        <div class="input-group half-width">
+          <label for="phone">Telefon*</label>
+          <input
+            type="tel"
+            id="phone"
+            formControlName="phone"
+            placeholder="Telefon Numaranızı Giriniz"
+          />
+        </div>
+        <div class="input-group half-width">
+          <div style="width: 100%">
+            <label for="cityId">Parent City ID</label>
+            <ng-select
+              style="padding-bottom: 0"
+              formControlName="cityId"
+              [items]="cityList"
+              bindLabel="name"
+              bindValue="id"
+              placeholder="Select Product Type"
+            >
+            </ng-select>
+          </div>
+        </div>
+      </div>
+
+      <!-- İlçe ve Mahalle Yan Yana -->
+      <div class="input-group-row">
+        <div class="input-group half-width">
+          <div style="width: 100%">
+            <label for="districtId">Parent District ID</label>
+            <ng-select
+              style="padding-bottom: 0"
+              formControlName="districtId"
+              [items]="districtList"
+              bindLabel="name"
+              bindValue="id"
+              placeholder="Select Product Type"
+            >
+            </ng-select>
+          </div>
+        </div>
+        <div class="input-group half-width">
+          <div style="width: 100%">
+            <label for="neighbourhoodId">Parent Neighbourhood ID</label>
+            <ng-select
+              style="padding-bottom: 0"
+              formControlName="neighbourhoodId"
+              [items]="neighbourhoodList"
+              bindLabel="name"
+              bindValue="id"
+              placeholder="Select Product Type"
+            >
+            </ng-select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Adres (Tam Genişlik) -->
+      <div class="input-group full-width">
+        <label for="detailedAddress">Adres*</label>
+        <textarea
+          id="detailedAddress"
+          formControlName="detailedAddress"
+          placeholder="Cadde, mahalle, sokak ve diğer bilgileri giriniz"
+        ></textarea>
+      </div>
+
+      <!-- Adres Başlığı (Tam Genişlik) -->
+      <div class="input-group full-width">
+        <label for="address-title">Adres Başlığı*</label>
+        <input
+          type="text"
+          id="address-title"
+          formControlName="titleOfAddress"
+          placeholder="Adres Başlığı Giriniz"
+        />
+      </div>
+
+      <!-- Kaydet Butonu -->
+      <button type="submit" class="address-popup-submit">Kaydet</button>
+    </form>
+  </div>
+
+  <div *ngIf="isUniquePopupVisible" class="unique-popup-overlay">
+    <div class="unique-popup-container">
+      <span class="unique-popup-close-btn" (click)="hideUniquePopup()">✖</span>
+      <div *ngIf="isUniquePopupSuccess" class="unique-popup-success-icon">✔️</div>
+      <div *ngIf="!isUniquePopupSuccess" class="unique-popup-error-icon">✖️</div>
+      <p *ngIf="isUniquePopupSuccess" class="unique-popup-success-message">Kupon başarıyla tanımlandı!</p>
+      <p *ngIf="!isUniquePopupSuccess" class="unique-popup-error-message">Üzgünüz, böyle bir kod yok, yanlış yazmış olabilirsiniz. Tekrar kontrol etmenizi öneriyoruz.</p>
+      <button class="unique-popup-btn-confirm" (click)="hideUniquePopup()">Tamam</button>
+    </div>
+  </div>
+  
+</main>

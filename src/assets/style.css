@@ -213,7 +213,7 @@ nav {
 	background: var(--light);
 	height: 64px;
 	padding: 0 20px;
-	display: flex !important;
+	display: flex;
 	align-items: center;
 	grid-gap: 28px;
 	position: sticky;
@@ -230,10 +230,10 @@ nav form {
 	width: 100%;
 	margin-right: auto;
 }
-nav .form-group {
+nav .form-group-admin {
 	position: relative;
 }
-nav .form-group input {
+nav .form-group-admin input {
 	width: 100%;
 	background: var(--grey);
 	border-radius: 5px;
@@ -242,10 +242,10 @@ nav .form-group input {
 	padding: 10px 36px 10px 16px;
 	transition: all .3s ease;
 }
-nav .form-group input:focus {
+nav .form-group-admin input:focus {
 	box-shadow: 0 0 0 1px var(--blue), 0 0 0 4px var(--light-blue);
 }
-nav .form-group .icon {
+nav .form-group-admin .icon {
 	position: absolute;
 	top: 50%;
 	transform: translateY(-50%);
@@ -546,12 +546,12 @@ main .chat-box .msg.me p {
 main form {
 	margin-top: 6px;
 }
-main .form-group {
+main .form-group-admin {
 	width: 100%;
 	display: flex;
 	grid-gap: 10px;
 }
-main .form-group input {
+main .form-group-admin input {
 	flex-grow: 1;
 	padding: 10px 16px;
 	border-radius: 5px;
@@ -561,7 +561,7 @@ main .form-group input {
 	transition: all .3s ease;
 	width: 100%;
 }
-main .form-group input:focus {
+main .form-group-admin input:focus {
 	box-shadow: 0 0 0 1px var(--blue), 0 0 0 4px var(--light-blue);
 }
 main .btn-send {

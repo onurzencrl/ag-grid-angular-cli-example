@@ -1,0 +1,31 @@
+<aside class="orders-sidebar">
+  <div class="profile-user-info">
+    <div class="profile-avatar">OZ</div>
+    <div class="profile-username">{{user.firstName +" "+ user.lastName}}</div>
+    <!-- <div class="premium-badge">PREMIUM ile 1,00 TL'ye</div> -->
+  </div>
+  <ul class="orders-menu">
+    <li [routerLink]="['/orders']" routerLinkActive="active">
+      <span class="menu-icon">📦</span>Siparişlerim
+    </li>
+    <li [routerLink]="['/reviews']" routerLinkActive="active">
+      <span class="menu-icon">⭐</span>Değerlendirmelerim
+    </li>
+    <li [routerLink]="['/user-info']" routerLinkActive="active">
+      <span class="menu-icon">👤</span>Kullanıcı Bilgilerim
+    </li> 
+     <li [routerLink]="['/myaddresses']">
+      <span class="menu-icon">👤</span>Adreslerim
+    </li>
+  </ul>
+  <div class="orders-support">
+    <ul>
+      <li [routerLink]="['/customer-support']" routerLinkActive="active">
+        <span class="menu-icon">🛠</span>Müşteri Hizmetleri
+      </li>
+      <li (click)="onLogout()">
+        <span class="menu-icon">🚪</span>Çıkış yap
+      </li>
+    </ul>
+  </div>
+</aside>

@@ -1,0 +1,247 @@
+
+  <!--
+    - NOTIFICATION TOAST
+  -->
+  
+  <app-bought-an-item> </app-bought-an-item>
+  
+  <!--
+    - HEADER
+  -->
+  <div id="top"></div>
+  <app-top-header> </app-top-header>
+
+<div class="product-container">
+
+    <div class="container">
+
+<div class="sidebar  has-scrollbar" data-mobile-menu>
+
+    <div class="sorting-container">
+      <label for="sorting">Sıralama</label>
+      <div class="sorting-dropdown">
+        <select id="sorting" (change)="sortProducts($event)">
+          <option value="recommended">Önerilen</option>
+          <option value="lowestPrice">En düşük fiyat</option>
+          <option value="highestPrice">En yüksek fiyat</option>
+          <option value="bestSellers">En çok satan</option>
+          <option value="favorites">En favoriler</option>
+          <option value="newest">En yeniler</option>
+          <option value="mostRated">En çok değerlendirilen</option>
+        </select>
+      </div>
+    </div>
+    
+  
+  
+    <div class="sidebar-category">
+      <div class="sidebar-top">
+        <h2 class="sidebar-title">Filters</h2>
+        <button class="sidebar-close-btn" (click)="closeSidebar()">
+          <i class="fa fa-times-circle"></i>
+        </button>
+      </div>
+     
+    
+      <ul class="sidebar-menu-category-list">
+        <!-- Parent Filters -->
+        <li class="sidebar-menu-category" *ngFor="let parent of parentFilters">
+          <button class="sidebar-accordion-menu" (click)="toggleAccordion($event, 'test')">
+            <div class="menu-title-flex">
+              <p class="menu-title">{{ parent.name }}</p>
+            </div>
+            <div>
+              <i class="fa fa-plus-circle add-icon" *ngIf="childFilters[parent.id]"></i>
+              <i class="fa fa-minus-circle remove-icon" *ngIf="childFilters[parent.id]"></i>
+            </div>
+          </button>
+          <ul class="sidebar-submenu-category-list" *ngIf="childFilters[parent.id]">
+            <li style="display: flex; align-items: center;" class="sidebar-submenu-category" *ngFor="let child of childFilters[parent.id]">
+              <input style="width: 20px;" type="checkbox" [id]="child.id" (change)="filterProducts(parent.name, child.name , $event)">
+              <label [for]="child.id">{{ child.name }}</label>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>   
+     <div class="sidebar-category">
+      <div class="sidebar-top">
+        <h2 class="sidebar-title">Filters</h2>
+        <button class="sidebar-close-btn" (click)="closeSidebar()">
+          <i class="fa fa-times-circle"></i>
+        </button>
+      </div>
+     
+    
+      
+      <ul class="sidebar-menu-category-list">
+        <li class="sidebar-menu-category">
+          <p class="menu-title">Price</p>
+          <div class="price-filter">
+            <label for="minPrice" class="price-label">Min: &nbsp;</label>
+            <input id="minPrice" type="number" [(ngModel)]="minPrice" class="price-input" (change)="filterProducts('price',minPrice!.toString(),$event)" placeholder="Min">
+    
+          </div><div class="price-filter">
+            
+            
+            <label for="maxPrice" class="price-label">Max: &nbsp;</label>
+            <input id="maxPrice" type="number" [(ngModel)]="maxPrice" class="price-input" (change)="filterProducts('price',maxPrice!.toString(),$event)" placeholder="Max">
+          </div>
+        </li>
+      </ul>
+      
+      
+      
+    </div>
+    
+
+  </div>
+
+
+
+
+  <div class="product-box">
+
+    <!--
+      - PRODUCT MINIMAL
+    -->
+
+    <div *ngIf="activeFilters.length <= 0" class="product-minimal">
+
+    </div>
+
+
+    <!--
+      - PRODUCT GRID
+    -->
+
+    <div class="product-main">
+
+      <h2 class="title">New Products</h2>
+
+      <div class="product-grid">
+        <div  *ngFor="let product of productList">
+        <div class="showcase" *ngIf="TagSpecificType.discount == product.productSpecificTagId">
+
+          <div class="showcase-banner" *ngIf="TagSpecificType.discount == product.productSpecificTagId">
+
+            <img [src]="product.imageUrl" [alt]="product.description" width="300" class="product-img default">
+            <img [src]="product.secondImageUrl" [alt]="product.description" width="300" class="product-img hover">
+
+            <p class="showcase-badge">15%</p>
+
+            <div class="showcase-actions">
+
+              <button class="btn-action">
+                <i class="fa fa-heart" (click)="addFav(product)" aria-hidden="true"></i>
+              </button>
+              <button class="btn-action" [routerLink]="['/product/detail', product.id]">
+                <i class="fa fa-eye" aria-hidden="true"></i>
+              </button>
+
+              <!-- <button class="btn-action">
+                <i class="fa fa-repeat" aria-hidden="true"></i>
+              </button> -->
+
+              <button (click)="addBasket(product)" class="btn-action">
+                <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+              </button>
+
+            </div>
+
+          </div>
+
+          <div class="showcase-content" >
+
+        
+            <a [routerLink]="['/product/detail', product.id]" class="showcase-category">{{product.name}}</a>
+
+            <a [routerLink]="['/product/detail', product.id]">
+              <h3 class="showcase-title">Mens Winter Leathers Jackets</h3>
+            </a>
+
+            <div class="showcase-rating">
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+            </div>
+
+            <div class="price-box">
+              <p class="price">{{product.price}}</p>
+              <del>$75.00</del>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="showcase" *ngIf="TagSpecificType.sale == product.productSpecificTagId">
+        
+          <div class="showcase-banner">
+            <img [src]="product.imageUrl" [alt]="product.description" width="300" class="product-img default">
+            <img [src]="product.secondImageUrl" [alt]="product.description" width="300" class="product-img hover">
+        
+            <p class="showcase-badge angle black">sale</p>
+        
+            <div class="showcase-actions">
+
+              <button class="btn-action">
+                <i class="fa fa-heart" (click)="addFav(product)" aria-hidden="true"></i>
+              </button>
+
+              <button class="btn-action" [routerLink]="['/product/detail', product.id]">
+                <i class="fa fa-eye" aria-hidden="true"></i>
+              </button>
+              <!-- <button class="btn-action">
+                <i class="fa fa-repeat" aria-hidden="true"></i>
+              </button> -->
+
+              <button (click)="addBasket(product)" class="btn-action">
+                <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+              </button>
+
+            </div>
+          </div>
+        
+          <div class="showcase-content">
+           
+        
+            <a [routerLink]="['/product/detail', product.id]" class="showcase-category">{{product.name}}</a>
+
+            <a [routerLink]="['/product/detail', product.id]">
+              <h3 class="showcase-title">Mens Winter Leathers Jackets</h3>
+            </a>
+
+            <div class="showcase-rating">
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+            </div>
+
+            <div class="price-box">
+              <p class="price">{{product.price}}</p>
+              <del>{{product.price}}</del>
+            </div>
+        
+          </div>
+        
+        </div>
+      </div>
+
+      </div>
+
+    </div>
+
+  </div>
+    </div>
+</div>
+
+
+  <!--
+    - FOOTER
+  -->
+  <app-footer> </app-footer>

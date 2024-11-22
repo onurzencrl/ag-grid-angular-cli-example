@@ -1,0 +1,349 @@
+/* Konteyner genel düzeni */
+.user-info-container {
+    display: flex;
+    align-items: flex-start; /* İçeriklerin yukarıdan hizalanması */
+    gap: 20px; /* Aralarındaki boşluk */
+  }
+  
+  /* Yan taraf (sidebar) genişliği */
+  app-user-info-sidebar {
+    width: 250px; /* Sidebar genişliği */
+  }
+  
+  /* İçerik ana bölümünün genişliği */
+  .user-info-content {
+    flex: 1; /* Esnek olarak yer kaplasın */
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+  }
+  
+  /* Adres sekmesi düzeni */
+  .tabs {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+  }
+  
+  .tab {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    border: none;
+    background-color: #f2f2f2;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .tab.active {
+    background-color: #fff;
+    font-weight: bold;
+    border: 1px solid #ddd;
+  }
+  
+  .new-address-btn {
+    display: block;
+    width: 200px;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #ff6600;
+    background-color: #fff;
+    border: 2px solid #ff6600;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .new-address-btn:hover {
+    background-color: #ff6600;
+    color: white;
+  }
+  
+  .saved-address {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+  }
+  
+  .address-details h4 {
+    margin: 0;
+    font-size: 18px;
+  }
+  
+  .address-details p {
+    margin: 0;
+    color: #666;
+  }
+  
+  .star {
+    color: #ffcc00;
+    font-size: 18px;
+    margin-left: 5px;
+  }
+  
+  .edit-btn {
+    font-size: 18px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #ff6600;
+  }
+  
+  .edit-btn:hover {
+    color: #e55d00;
+  }
+  
+/* Popup arka plan overlay */
+.address-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Arka planı karartır */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Üstte görünmesini sağlar */
+  }
+  
+  /* Popup form alanı */
+  .address-popup-overlay form {
+    background-color: #fff; /* Beyaz arka plan */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Hafif gölge */
+    width: 100%;
+    max-width: 600px; /* Maksimum genişlik */
+    z-index: 1001; /* Inputların daha görünür olması için */
+  }
+  
+  /* Input grupları */
+  .input-group {
+    margin-bottom: 15px;
+  }
+  
+  /* Tam genişlik inputları */
+  .full-width {
+    width: 100%;
+  }
+  
+  /* Yarım genişlik inputları */
+  .half-width {
+    width: 48%; /* Biraz boşluk bırak */
+  }
+  
+  /* Yan yana inputlar */
+  .input-group-row {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  /* Input ve textarea stilleri */
+  input[type="text"], input[type="email"], input[type="tel"], select, textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
+  }
+  
+  /* Textarea yüksekliği */
+  textarea {
+    height: 80px;
+    resize: vertical; /* İstersen boyutlandırılabilir */
+  }
+  
+  /* Kaydet Butonu */
+  .address-popup-submit {
+    background-color: #ff6600;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    display: block;
+    width: 100%;
+  }
+  
+  .address-popup-submit:hover {
+    background-color: #e55d00;
+  }
+  
+  
+  /* Popup İçerik */
+  .address-popup-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    width: 600px; /* Daha geniş bir popup */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+  }
+  
+  /* Popup Header */
+  .address-popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .address-popup-header h2 {
+    font-size: 24px;
+  }
+  
+  .address-popup-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #999;
+  }
+  
+  .address-popup-close:hover {
+    color: black;
+  }
+  
+  /* Input Grupları */
+  .input-group {
+    margin-bottom: 15px;
+  }
+  
+  .input-group.full-width {
+    width: 100%;
+  }
+  
+  .input-group-row {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .input-group.half-width {
+    width: 48%; /* Yan yana inputların genişliği */
+  }
+  
+  .input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .input-group input,
+  .input-group select,
+  .input-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .input-group textarea {
+    resize: vertical;
+  }
+  
+  /* Kaydet Butonu */
+  .address-popup-submit {
+    width: 100%;
+    padding: 12px;
+    background-color: orange;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .address-popup-submit:hover {
+    background-color: #e69500;
+  }
+
+  /* 768px ve altı ekranlar için (tablet ve altı) */
+@media (max-width: 768px) {
+  /* Konteyner genel düzeni */
+  .user-info-container {
+      flex-direction: column; /* Yan yana yerine alt alta gelsin */
+      gap: 10px; /* Boşlukları azalt */
+  }
+
+  /* Sidebar genişliği */
+  app-user-info-sidebar {
+      width: 100%; /* Mobilde tam genişlik */
+      display: none;
+  }
+
+  /* İçerik ana bölümü */
+  .user-info-content {
+      width: 100%; /* Mobilde tam genişlik */
+      padding: 15px;
+  }
+
+  /* Sekme düzeni */
+  .tabs {
+      flex-direction: column; /* Sekmeleri alt alta getir */
+  }
+
+  .tab {
+      font-size: 14px; /* Font boyutunu küçült */
+      padding: 8px;
+  }
+
+  /* Yeni adres butonu */
+  .new-address-btn {
+      width: 100%; /* Tam genişlik */
+      font-size: 14px;
+  }
+
+  /* Kaydedilmiş adres */
+  .saved-address {
+      flex-direction: column; /* Yan yana yerine alt alta */
+      align-items: flex-start; /* Sola hizala */
+  }
+}
+
+/* 480px ve altı ekranlar için (küçük mobil ekranlar) */
+@media (max-width: 480px) {
+  /* İçerik bölümü */
+  .user-info-content {
+      padding: 10px;
+  }
+
+  /* Sekme düzeni */
+  .tab {
+      font-size: 12px; /* Daha küçük font */
+      padding: 6px;
+  }
+
+  /* Yeni adres butonu */
+  .new-address-btn {
+      font-size: 12px;
+  }
+
+  /* Kaydet butonu */
+  .address-popup-submit {
+      font-size: 14px;
+      padding: 10px;
+  }
+
+  /* Input grupları */
+  .input-group {
+      margin-bottom: 10px;
+  }
+
+  .input-group-row {
+      flex-direction: column; /* Yan yana yerine alt alta */
+      gap: 10px;
+  }
+
+  /* Yarım genişlik inputları */
+  .half-width {
+      width: 100%; /* Mobilde tam genişlik */
+  }
+}

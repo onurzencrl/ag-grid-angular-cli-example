@@ -1,0 +1,53 @@
+<button type="button" class="btn btn-primary" (click)="openModal()" data-toggle="modal" data-target="#customModal">
+    Add Row
+</button>
+<button type="button" class="btn btn-primary" (click)="deleteRow()" data-toggle="modal" data-target="#customModal">
+    Delete Selected Row
+</button>
+
+<ox-rich-grid [bindForEdit]="columnDefs" [bindForRowData]="rowData" rowSelection="multiple" [class]="themeClass">
+</ox-rich-grid>
+
+<div class="custom-modal" id="customModal">
+  <div class="custom-modal-dialog" role="document">
+    <div class="custom-modal-content">
+      <div class="custom-modal-header">
+        <h5 class="custom-modal-title">Modal title</h5>
+        <button type="button" class="close" (click)="closeModal()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="custom-modal-body">
+        <form [formGroup]="testimonialForm" (ngSubmit)="onSubmit()">
+            <div>
+            <label for="name">Name</label>
+            <input id="name" formControlName="name" type="text">
+              Name is required
+            </div> 
+             <div>
+            <label for="testimonialText">Name</label>
+            <input id="testimonialText" formControlName="testimonialText" type="text">
+            testimonialText is required
+            </div>  
+            <div>
+            <label for="position">Name</label>
+            <input id="position" formControlName="position" type="text">
+            position is required
+            </div>
+            <div>
+              <label for="image">Product Image</label>
+              <input id="image" type="file" (change)="onFileSelected($event)">
+            </div>
+            
+          <div>
+            <label for="isDeleted">Is Deleted</label>
+            <input id="isDeleted" formControlName="isDeleted" type="checkbox">
+          </div>
+
+          <button type="submit" class="btn btn-secondary" [disabled]="testimonialForm.invalid" (click)="closeModal()">Ekle</button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,75 @@
+<button type="button" class="btn btn-primary" (click)="openModal()" data-toggle="modal" data-target="#exampleModal">
+    Add Row
+  </button>
+  <button type="button" class="btn btn-primary" (click)="deleteRow()" data-toggle="modal" data-target="#exampleModal">
+    Delete Selected Row
+  </button>
+  
+<ox-rich-grid [bindForEdit]="columnDefs" [bindForRowData]="rowData"  rowSelection="multiple"  [class]="themeClass"    
+
+></ox-rich-grid>
+  <!-- Modal -->
+  <div class="custom-modal" id="customModal">
+    <div class="custom-modal-dialog" role="document">
+      <div class="custom-modal-content">
+        <div class="custom-modal-header">
+          <h5 class="custom-modal-title">Modal title</h5>
+          <button type="button" class="close" (click)="closeModal()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="custom-modal-body">
+            <form [formGroup]="bannerForm" (ngSubmit)="onSubmit()">
+              <div>
+                <label for="title">title</label>
+                <input id="name" formControlName="title" type="text">
+                <div *ngIf="bannerForm.get('title')!.invalid && bannerForm.get('title')!.touched">
+                    title is required
+                </div>
+              </div>
+            
+              <div>
+                <label for="subtitle">subtitle</label>
+                <input id="subtitle" formControlName="subtitle" type="text">
+              </div>
+                  <div>
+                <label for="buttonLink">buttonLink</label>
+                <input id="buttonLink" formControlName="buttonLink" type="text">
+              </div>
+               <div>
+                <label for="buttonText">buttonText</label>
+                <input id="buttonText" formControlName="buttonText" type="text">
+              </div>
+                <div>
+                <label for="bannerText">bannerText</label>
+                <input id="bannerText" formControlName="bannerText" type="text">
+              </div>
+            
+              <div>
+                <label for="image">Product Image</label>
+                <input id="image" type="file" (change)="onFileSelected($event)">
+              </div>
+              
+              <div>
+                <img [src]="imageUrl" alt="Product Image" style="width: 200px; height: auto;">
+              </div>
+              <div>
+                <label for="isDeleted">Is Deleted</label>
+                <input id="isDeleted" formControlName="isDeleted" type="checkbox">
+              </div>
+            
+            
+           
+              <button type="submit" class="btn btn-secondary" [disabled]="bannerForm.invalid" (click)="closeModal()">Ekle</button>
+            </form>
+            
+
+        </div>
+        <!-- <div class="custom-modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div> -->
+      </div>
+    </div>
+  </div>
+  

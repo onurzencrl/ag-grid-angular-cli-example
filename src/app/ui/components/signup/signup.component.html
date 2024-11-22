@@ -1,0 +1,133 @@
+
+
+
+
+<div class="overlay" data-overlay></div>
+
+<!--
+  - MODAL
+-->
+
+<div class="modal" data-modal>
+
+  <div class="modal-close-overlay" data-modal-overlay></div>
+
+  <div class="modal-content">
+
+    <button class="modal-close-btn" data-modal-close>
+      <i class="fa fa-times-circle" aria-hidden="true"></i>
+  </button>
+
+    <div class="newsletter-img">
+      <img src="./assets/frontassets/assets/images/newsletter.png" alt="subscribe newsletter" width="400" height="400">
+    </div>
+
+    <div class="newsletter">
+      <form (ngSubmit)="onSubmitAboneOl()" #subscriberForm="ngForm">
+
+        <div class="newsletter-header">
+          <h3 class="newsletter-title">Subscribe Newsletter.</h3>
+          <p class="newsletter-desc">
+            Subscribe to <b>Anon</b> to get the latest products and discount updates.
+          </p>
+        </div>
+      
+        <input type="email" name="email" [(ngModel)]="subscriber.email" class="email-field" placeholder="Email Address" required>
+      
+        <button type="submit" class="btn-newsletter" [disabled]="subscriberForm.invalid">Subscribe</button>
+      
+      </form>
+      
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+
+<!--
+  - NOTIFICATION TOAST
+-->
+
+<app-bought-an-item> </app-bought-an-item>
+
+
+
+
+
+<!--
+  - HEADER
+-->
+
+<app-top-header> </app-top-header>
+
+
+
+<main style="display: flex; align-items: center; justify-content: center;">
+  <form (submit)="onSubmit()" class="my-form">
+    <div class="login-welcome-row">
+      <a href="#" title="Logo">
+        <img src="./assets/frontassets/assets/images/login/logo.svg" alt="Logo" class="logo">
+      </a>
+      <h1>Create Your Account</h1>
+    </div>
+    
+    <div class="text-field">
+      <label for="name">Name</label>
+      <input 
+        type="text" id="name" name="name" 
+        autocomplete="off" placeholder="Your Name"
+        [(ngModel)]="name" required>
+      <div class="error-message">Name is required</div>
+    </div>
+    
+    <div class="text-field">
+      <label for="email">Email</label>
+      <input 
+        type="email" id="email" name="email" 
+        autocomplete="off" placeholder="you@example.com"
+        [(ngModel)]="email" required>
+      <div class="error-message">Email in incorrect format</div>
+    </div>
+  
+    <div class="text-field">
+      <label for="password">Password</label>
+      <input 
+        id="password" type="password" 
+        name="password" placeholder="Your password"
+        [(ngModel)]="password"
+        title="Minimum 6 characters at least 1 Alphabet and 1 Number"
+        pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$" required>
+      <div class="error-message">Minimum 6 characters at
+          least 1 Alphabet and 1 Number</div>
+    </div>
+    
+    <div class="text-field">
+      <label for="confirm-password">Confirm Password</label>
+      <input 
+        id="confirm-password" type="password" 
+        name="confirm-password" placeholder="Confirm your password"
+        [(ngModel)]="confirmPassword"
+        title="Must match the password"
+        required>
+      <div class="error-message">Passwords do not match</div>
+    </div>
+  
+    <button style="background: #605DFF; color: white;" type="submit" class="my-form__button">
+      Sign Up
+    </button>
+    
+    <div class="my-form__actions">
+      <div class="my-form__row">
+        <span>Already have an account?</span>
+        <a routerLink="/login" title="Login">
+          Sign In
+        </a>
+      </div>
+    </div>
+  </form>
+  
+</main>

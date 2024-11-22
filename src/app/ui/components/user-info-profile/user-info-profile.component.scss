@@ -1,0 +1,428 @@
+.user-info-container {
+  display: flex;
+}
+
+.user-info-content {
+  flex: 1;
+  padding: 20px;
+}
+
+.user-info-header {
+  // border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 20px;
+}
+
+.user-info-header h1 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.user-info-tabs {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  z-index: unset;
+}
+
+.user-info-tabs .tab {
+  border: none;
+  background: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+
+.user-info-tabs .tab.active {
+  border-color: #f60;
+}
+
+.user-info-form {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.profile-info,
+.contact-info {
+  // background: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.profile-info h2,
+.contact-info h2 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.input-group label {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.input-group input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.row {
+  display: flex;
+  gap: 15px;
+}
+
+.gender-selection {
+  display: flex;
+  gap: 15px;
+}
+
+.gender-selection input {
+  margin-right: 5px;
+}
+
+.update-btn {
+  background-color: #ccc;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: not-allowed;
+}
+
+.phone-input {
+  display: flex;
+  align-items: center;
+}
+
+.phone-input .country-code {
+  padding: 10px;
+  background: #f0f0f0;
+  border-right: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.error-message {
+  color: #f00;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.user-info-container {
+  display: flex;
+}
+
+.user-info-content {
+  flex: 1;
+  padding: 20px;
+}
+
+.user-info-header {
+  // border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 20px;
+}
+
+.user-info-header h1 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.user-info-tabs {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.user-info-tabs .tab {
+  border: none;
+  background: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+
+.user-info-tabs .tab.active {
+  border-color: #f60;
+}
+
+.user-info-form {
+  width: 50%;
+  margin: auto;
+}
+
+.password-change h2 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.input-group label {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.input-group input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+}
+
+.update-btn {
+  background-color: #ccc;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.update-btn:disabled {
+  cursor: not-allowed;
+  background-color: #e0e0e0;
+}
+
+.password-info {
+  font-size: 12px;
+  color: #777;
+  margin-bottom: 10px;
+}
+
+.info-icon {
+  margin-right: 5px;
+}
+
+.preferences-container {
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.preferences-container h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.preferences-container p {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.preference {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+}
+
+.preference-info h3 {
+  font-size: 16px;
+  margin: 0;
+  color: #333;
+}
+
+.preference-info p {
+  font-size: 14px;
+  color: #666;
+  margin: 5px 0 0;
+}
+
+/* Toggle Switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 24px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #ff6600;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+/* Mobil Cihazlar İçin (max-width: 600px) */
+@media (max-width: 600px) {
+
+  .res-sidebar
+  {
+    display: none;
+  }
+
+  .user-info-container {
+    flex-direction: column;
+  }
+
+  .user-info-content {
+    padding: 10px;
+  }
+
+  .user-info-header {
+    margin-bottom: 90px;
+  }
+
+  .user-info-header h1 {
+    font-size: 20px;
+  }
+
+  .user-info-tabs {
+    // flex-direction: column;
+    gap: 5px;
+    margin-top: 5px;
+  }
+
+  .user-info-tabs .tab {
+    font-size: 14px;
+    padding: 8px 15px;
+  }
+
+  .user-info-form {
+    width: 100% !important;
+    padding: 10px;
+    gap: 20px;
+  }
+
+  .profile-info,
+  .contact-info {
+    padding: 15px;
+  }
+
+  .profile-info h2,
+  .contact-info h2 {
+    font-size: 16px;
+  }
+
+  .input-group {
+    margin-bottom: 10px;
+  }
+
+  .input-group label {
+    font-size: 12px;
+  }
+
+  .input-group input {
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  .row {
+    flex-direction: column;
+  }
+
+  .gender-selection {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .update-btn {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  .phone-input .country-code {
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  .error-message {
+    font-size: 10px;
+  }
+
+  .preferences-container {
+    width: 100% !important;
+    padding: 15px;
+  }
+
+  .preferences-container h2 {
+    font-size: 20px;
+  }
+
+  .preferences-container p {
+    font-size: 12px;
+  }
+
+  .preference {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 8px;
+  }
+
+  .preference-info h3 {
+    font-size: 14px;
+  }
+
+  .preference-info p {
+    font-size: 12px;
+  }
+
+  .switch {
+    width: 40px;
+    height: 20px;
+  }
+
+  .slider:before {
+    width: 18px;
+    height: 18px;
+  }
+
+  input:checked + .slider:before {
+    transform: translateX(20px);
+  }
+}

@@ -1,0 +1,6 @@
+<div *ngIf="blogDetail">
+    <h1>{{ blogDetail.title }}</h1>
+    <h2>{{ blogDetail.subtitle }}</h2>
+    <p [innerHTML]="blogDetail.content"></p>
+</div>
+  

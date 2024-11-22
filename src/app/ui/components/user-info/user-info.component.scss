@@ -1,0 +1,166 @@
+.profile-container {
+    display: flex;
+    margin: 20px;
+  }
+  
+  .profile-sidebar {
+    width: 250px;
+    background-color: white;
+    padding: 20px;
+    // box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .profile-user-info {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .profile-avatar {
+    width: 50px;
+    height: 50px;
+    background-color: #ccc;
+    border-radius: 50%;
+    display: inline-block;
+    line-height: 50px;
+    font-size: 24px;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .profile-username {
+    margin-top: 10px;
+    font-weight: bold;
+  }
+  
+  .premium-badge {
+    background-color: #ff4081;
+    color: white;
+    padding: 5px;
+    margin-top: 10px;
+    font-size: 12px;
+    border-radius: 5px;
+  }
+  
+  .profile-menu {
+    list-style: none;
+    margin-top: 20px;
+  }
+  
+  .profile-menu li {
+    padding: 10px 0;
+    cursor: pointer;
+    color: #333;
+  }
+  
+  .profile-menu li.active {
+    font-weight: bold;
+    color: #ff4081;
+  }
+  
+  .profile-content {
+    flex: 1;
+    background-color: white;
+    padding: 20px;
+    margin-left: 20px;
+    // box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .profile-content h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .profile-content p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 20px;
+  }
+  
+  .profile-form, .contact-form, .email-form {
+    margin-bottom: 30px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #333;
+  }
+  
+  .form-group input[type="text"],
+  .form-group input[type="email"],
+  .form-group input[type="tel"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+  
+  .gender-group input[type="radio"] {
+    margin-right: 5px;
+  }
+  
+  .gender-group label {
+    margin-right: 15px;
+  }
+  
+  .submit-btn {
+    background-color: #d1d1d1;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: not-allowed;
+    font-size: 14px;
+    display: block;
+    width: 100%;
+  }
+  
+  .contact-info {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .contact-info h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .contact-info p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 20px;
+  }
+  
+  .phone-input {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  
+  .phone-prefix {
+    background-color: #e9e9e9;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    font-size: 14px;
+  }
+  
+  .phone-input input {
+    flex: 1;
+    border-radius: 0 5px 5px 0;
+    border-left: none;
+  }
+  
+  .error-icon {
+    position: absolute;
+    right: 10px;
+    color: #ff4040;
+    font-size: 18px;
+  }

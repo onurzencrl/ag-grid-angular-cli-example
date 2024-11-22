@@ -11,7 +11,9 @@ export default class RefData {
         "Cage", "Carson", "Chandler", "Cohen", "Cole", "Corbin", "Dallas", "Dalton", "Dane",
         "Donovan", "Easton", "Fisher", "Fletcher", "Grady", "Greyson", "Griffin", "Gunner",
         "Hayden", "Hudson", "Hunter", "Jacoby", "Jagger", "Jaxon", "Jett", "Kade", "Kane",
-        "Keating", "Keegan", "Kingston", "Kobe"];
+        "Keating", "Keegan", "Kingston", "Kobe"]; 
+        
+        static genderers = ["Beckham", "Black"];
 
     static DOBs = [
         new Date(2000, 0, 1),

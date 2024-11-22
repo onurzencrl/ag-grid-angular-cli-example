@@ -1,6 +1,6 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 // for enterprise features
-import { GridApi, Module, ColDef, ColGroupDef, GridReadyEvent, CellClickedEvent, CellDoubleClickedEvent, CellContextMenuEvent, ICellRendererParams } from '@ag-grid-community/core';
+import { GridApi, Module, ColDef, ColGroupDef, GridReadyEvent, CellClickedEvent, CellDoubleClickedEvent, CellContextMenuEvent, ICellRendererParams, SelectionChangedEvent, CellValueChangedEvent } from '@ag-grid-community/core';
 import { ClientSideRowModelModule } from "@ag-grid-community/client-side-row-model";
 import { MenuModule } from '@ag-grid-enterprise/menu';
 import { SideBarModule } from '@ag-grid-enterprise/side-bar';
@@ -19,6 +19,8 @@ import { RendererComponent } from '../renderer-component/renderer.component';
 import { GridChartsModule } from '@ag-grid-enterprise/charts';
 import { SetFilterModule } from '@ag-grid-enterprise/set-filter';
 import { RangeSelectionModule } from '@ag-grid-enterprise/range-selection';
+import { OnurTableService } from '../../onur-table.service';
+import { ThisReceiver } from '@angular/compiler';
 
 // set your key here
 // import {LicenseManager} from "@ag-grid-enterprise/core";
@@ -32,16 +34,30 @@ import { RangeSelectionModule } from '@ag-grid-enterprise/range-selection';
 })
 export class RichGridComponent {
     @Input() columnDefsFromTables: any[] = []; 
+    public columnDefs!: (ColDef | ColGroupDef)[];
+    public gridApi!: GridApi;
     @Input("bindForEdit")
     public set bindForEdit(val : any)
     {
+        this.columnDefs = val
+        console.log(val)
+        // if(val != null)
+            // this.columnDefs = val
+    } 
+    
+    @Input("bindForRowData")
+    public set bindForRowData(val : any)
+    {
+        this.rowDataFromBind = val
+        this.createRowData();
+
         console.log(val)
         // if(val != null)
             // this.columnDefs = val
     }
 
     public rowData!: any[];
-    public columnDefs!: (ColDef | ColGroupDef)[];
+    public rowDataFromBind: any[] = [];
     public rowCount!: string;
 
     public defaultColDef: ColDef;
@@ -63,7 +79,7 @@ export class RichGridComponent {
 
     public api!: GridApi;
 
-    constructor() {
+    constructor(private gridEventService: OnurTableService) {
         this.defaultColDef = {
             filter: true,
             floatingFilter: true,
@@ -81,36 +97,36 @@ export class RichGridComponent {
             rendererComponent: RendererComponent
         };
 
-        this.createRowData();
         this.createColumnDefs();
     }
 
     public createRowData() {
         const rowData: any[] = [];
 
-        for (let i = 0; i < 200; i++) {
-            const countryData = RefData.countries[i % RefData.countries.length];
-            rowData.push({
-                name: RefData.firstNames[i % RefData.firstNames.length] + ' ' + RefData.lastNames[i % RefData.lastNames.length],
-                skills: {
-                    android: Math.random() < 0.4,
-                    html5: Math.random() < 0.4,
-                    mac: Math.random() < 0.4,
-                    windows: Math.random() < 0.4,
-                    css: Math.random() < 0.4
-                },
-                dob: RefData.DOBs[i % RefData.DOBs.length],
-                address: RefData.addresses[i % RefData.addresses.length],
-                years: Math.round(Math.random() * 100),
-                proficiency: Math.round(Math.random() * 100),
-                country: countryData.country,
-                continent: countryData.continent,
-                language: countryData.language,
-                mobile: createRandomPhoneNumber()
-            });
-        }
+        // for (let i = 0; i < 200; i++) {
 
-        this.rowData = rowData;
+        //     const countryData = RefData.countries[i % RefData.countries.length];
+        //     rowData.push({
+        //         name: RefData.firstNames[i % RefData.firstNames.length] + ' ' + RefData.lastNames[i % RefData.lastNames.length],
+        //         skills: {
+        //             android: Math.random() < 0.4,
+        //             html5: Math.random() < 0.4,
+        //             mac: Math.random() < 0.4,
+        //             windows: Math.random() < 0.4,
+        //             css: Math.random() < 0.4
+        //         },
+        //         dob: RefData.DOBs[i % RefData.DOBs.length],
+        //         address: RefData.addresses[i % RefData.addresses.length],
+        //         years: Math.round(Math.random() * 100),
+        //         proficiency: Math.round(Math.random() * 100),
+        //         country: countryData.country,
+        //         continent: countryData.continent,
+        //         language: countryData.language,
+        //         mobile: createRandomPhoneNumber()
+        //     });
+        // }
+
+        this.rowData = this.rowDataFromBind;
     }
 
     private createColumnDefs() {
@@ -205,6 +221,7 @@ export class RichGridComponent {
                 ]
             }
         ];
+        // this.columnDefs
         // console.log(this.columnDefsFromTables)
         // this.columnDefs = this.columnDefsFromTables
     }
@@ -225,15 +242,16 @@ export class RichGridComponent {
 
     public onGridReady(params: GridReadyEvent) {
         console.log('onGridReady');
-
+    
         this.api = params.api;
         this.api.sizeColumnsToFit();
-
+    
         this.calculateRowCount();
     }
-
+    
     public onCellClicked($event: CellClickedEvent) {
         console.log('onCellClicked: ' + $event.rowIndex + ' ' + $event.colDef.field);
+
     }
 
     public onCellDoubleClicked($event: CellDoubleClickedEvent) {
@@ -254,6 +272,35 @@ export class RichGridComponent {
         });
     }
 
+    onRowValueChanged(event : any)
+    {
+        console.log('Row Value Changed', event);
+    }    
+  onSelectionChanged(event: SelectionChangedEvent) {
+    const selectedData = event.api.getSelectedRows();
+    this.gridEventService.setSelectedData(selectedData);
+
+    console.log('Selection Changed', selectedData);
+  }
+
+  onCellValueChanged(params: CellValueChangedEvent) {
+    params.node.data;
+    const changedData = [params.data];
+    params.api.applyTransaction({ update: changedData });
+    this.gridEventService.cellValueChanged(changedData);
+  }
+
+    getSelectedRows() {
+        if (this.gridApi) {
+          var selectedRows = this.gridApi.getSelectedRows();
+          console.log(selectedRows);
+        } else {
+          console.error('Grid API is not available.');
+        }
+      }
+      onRowSelected(event: any) {
+        console.log('Row selected: ', event.node.data);
+      }
     public dobFilter() {
         this.api.getFilterInstance('dob', (dateFilterComponent: any) => {
             dateFilterComponent.setModel({

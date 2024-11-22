@@ -1,0 +1,83 @@
+<button type="button" class="btn btn-primary" (click)="openModal()" data-toggle="modal" data-target="#customModal">
+  Add Row
+</button>
+<button type="button" class="btn btn-primary" (click)="deleteRow()" data-toggle="modal" data-target="#customModal">
+  Delete Selected Row
+</button>
+
+<ox-rich-grid [bindForEdit]="columnDefs" [bindForRowData]="rowData" rowSelection="multiple" [class]="themeClass">
+</ox-rich-grid>
+
+<div class="custom-modal" id="customModal">
+<div class="custom-modal-dialog" role="document">
+  <div class="custom-modal-content">
+    <div class="custom-modal-header">
+      <h5 class="custom-modal-title">Modal title</h5>
+      <button type="button" class="close" (click)="closeModal()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="custom-modal-body">
+      <form [formGroup]="couponForm" (ngSubmit)="onSubmit()">
+        <!-- Coupon Code -->
+        <div>
+          <label for="couponCode">Coupon Code</label>
+          <input id="couponCode" formControlName="couponCode" type="text">
+        </div>  
+      
+        <!-- Discount Rate -->
+        <div>
+          <label for="discountRate">Discount Rate</label>
+          <input id="discountRate" formControlName="discountRate" type="number" step="0.01">
+        </div>
+      
+        <!-- Min Limit -->
+        <div>
+          <label for="minLimit">Minimum Limit</label>
+          <input id="minLimit" formControlName="minLimit" type="number" step="0.01">
+        </div>
+      
+        <!-- Expiration Date -->
+        <div>
+          <label for="expirationDate">Expiration Date</label>
+          <input id="expirationDate" formControlName="expirationDate" type="date">
+        </div>
+      
+        <!-- Used Date -->
+        <div>
+          <label for="usedDate">Used Date</label>
+          <input id="usedDate" formControlName="usedDate" type="date">
+        </div>
+      
+        <!-- Is Active -->
+        <div>
+          <label for="isActive">Is Active</label>
+          <input id="isActive" formControlName="isActive" type="checkbox">
+        </div>
+      
+        <!-- Is Used -->
+        <div>
+          <label for="isUsed">Is Used</label>
+          <input id="isUsed" formControlName="isUsed" type="checkbox">
+        </div>
+      
+        <!-- User ID -->
+        <div>
+          <label for="userId">User ID</label>
+          <input id="userId" formControlName="userId" type="text">
+        </div>
+      
+        <!-- Order ID -->
+        <div>
+          <label for="orderId">Order ID</label>
+          <input id="orderId" formControlName="orderId" type="text">
+        </div>
+      
+        <button type="submit" class="btn btn-secondary" (click)="onSubmit()">Ekle</button>
+      </form>
+      
+
+    </div>
+  </div>
+</div>
+</div>

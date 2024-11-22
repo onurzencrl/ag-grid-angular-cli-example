@@ -1,0 +1,112 @@
+
+<!--
+  - NOTIFICATION TOAST
+-->
+
+<app-bought-an-item> </app-bought-an-item>
+
+
+
+
+
+<!--
+  - HEADER
+-->
+
+<app-top-header> </app-top-header>
+
+
+
+<!-- basket.component.html -->
+<main class="container-basket">
+  <!-- <h1 class="heading">
+      <i class="fa fa-shopping-cart-basket" aria-hidden="true"></i>
+      Shopping cart-basket
+  </h1> -->
+  <div class="container">
+    <div class="favorites-container">
+        <div class="filters">
+          <button class="filter-btn" (click)="filterFavorites('all')">Tüm Favoriler</button>
+          <button class="filter-btn" (click)="filterFavorites('advantageous')">Avantajlı Ürünler</button>
+          <button class="filter-btn" (click)="filterFavorites('price-drop')">Fiyatı Düşenler</button>
+          <button class="filter-btn" (click)="filterFavorites('coupon')">Kuponlu Ürünler</button>
+        </div>
+      
+        <div class="container">
+  <h2 class="title">Benzer Ürünler</h2>
+
+  <div class="product-grid">
+    <div *ngFor="let product of favProducts">
+      <div
+        class="showcase"
+      >
+        <div
+          class="showcase-banner"
+        >
+          <img
+            [src]="product.imageUrl"
+            [alt]="product.description"
+            width="300"
+            class="product-img default"
+          />
+          <img
+            [src]="product.secondImageUrl"
+            [alt]="product.description"
+            width="300"
+            class="product-img hover"
+          />
+
+          <p class="showcase-badge">15%</p>
+
+          <div class="showcase-actions">
+          
+            <button style="width: 35px;" class="btn-action">
+              <i class="fa fa-eye" aria-hidden="true"></i>
+            </button>
+
+            <button (click)="deleteFavItem(product.id)" style="width: 35px;"  class="btn-action">
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
+
+                <button style="width: 35px;"  (click)="addBasket(product)" class="btn-action">
+                  <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+                </button>
+
+          </div>
+        </div>
+
+        <div class="showcase-content">
+          <a
+            [routerLink]="['/product/detail', product.id]"
+            class="showcase-category"
+            >{{ product.name }}</a
+          >
+
+          <a [routerLink]="['/product/detail', product.id]">
+            <h3 class="showcase-title">Mens Winter Leathers Jackets</h3>
+          </a>
+
+          <div class="showcase-rating">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+          </div>
+
+          <div class="price-box">
+            <p class="price">{{ product.price }}</p>
+            <del>$75.00</del>
+          </div>
+        </div>
+      </div>
+
+   
+    </div>
+  </div>
+</div>
+
+      </div>
+      
+</div>
+</main>

@@ -1,0 +1,48 @@
+<button type="button" class="btn btn-primary" (click)="openModal()" data-toggle="modal" data-target="#customModal">
+    Add Row
+</button>
+<button type="button" class="btn btn-primary" (click)="deleteRow()" data-toggle="modal" data-target="#customModal">
+    Delete Selected Row
+</button>
+
+<ox-rich-grid [bindForEdit]="columnDefs" [bindForRowData]="rowData" rowSelection="multiple" [class]="themeClass">
+</ox-rich-grid>
+
+<div class="custom-modal" id="customModal">
+  <div class="custom-modal-dialog" role="document">
+    <div class="custom-modal-content">
+      <div class="custom-modal-header">
+        <h5 class="custom-modal-title">Modal title</h5>
+        <button type="button" class="close" (click)="closeModal()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="custom-modal-body">
+        <form [formGroup]="productdetailForm" (ngSubmit)="onSubmit()">
+          <div>
+            <label for="name">Name</label>
+            <input id="name" formControlName="name" type="text">
+              Name is required
+            </div>
+         <div>
+            <label for="description">Description</label>
+            <input id="description" formControlName="description" type="text">
+            description is required
+            </div>
+
+          <div>
+            <label for="isDeleted">Is Deleted</label>
+            <input id="isDeleted" formControlName="isDeleted" type="checkbox">
+          </div>
+          <div>
+            <label for="productId"> Product </label>
+            <ng-select formControlName="productId" [items]="this.productList" bindLabel="name" bindValue="id" placeholder="Select Product Type"> </ng-select>
+            </div> 
+
+          <button type="submit" class="btn btn-secondary" [disabled]="productdetailForm.invalid" (click)="closeModal()">Ekle</button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>

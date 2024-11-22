@@ -5,6 +5,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { RouterModule } from '@angular/router';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ContentComponent } from './content/content.component';
+import { BrowserModule } from '@angular/platform-browser';
 
 
 
@@ -17,6 +18,7 @@ import { ContentComponent } from './content/content.component';
   ],
   imports: [
     CommonModule,
+    BrowserModule,
     RouterModule
     
   ],

@@ -1,5 +1,8 @@
 'use strict';
 
+
+
+
 // modal variables
 const modal = document.querySelector('[data-modal]');
 const modalCloseBtn = document.querySelector('[data-modal-close]');
@@ -52,8 +55,6 @@ for (let i = 0; i < mobileMenuOpenBtn.length; i++) {
   overlay.addEventListener('click', mobileMenuCloseFunc);
 
 }
-
-
 
 
 

@@ -1,1 +1,62 @@
-<ox-rich-grid [bindForEdit]="colDefs"></ox-rich-grid>
+<button type="button" class="btn btn-primary" (click)="openModal()" data-toggle="modal" data-target="#exampleModal">
+    Add Row
+  </button>
+  <button type="button" class="btn btn-primary" (click)="deleteRow()" data-toggle="modal" data-target="#exampleModal">
+    Delete Selected Row
+  </button>
+  
+<ox-rich-grid [bindForEdit]="columnDefs" [bindForRowData]="rowData"  rowSelection="multiple"  [class]="themeClass"    
+
+></ox-rich-grid>
+  <!-- Modal -->
+  <div class="custom-modal" id="customModal">
+    <div class="custom-modal-dialog" role="document">
+      <div class="custom-modal-content">
+        <div class="custom-modal-header">
+          <h5 class="custom-modal-title">Modal title</h5>
+          <button type="button" class="close" (click)="closeModal()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="custom-modal-body">
+            <form [formGroup]="customerForm" (ngSubmit)="onSubmit()">
+              <div>
+                <label for="name">Name</label>
+                <input id="name" formControlName="name" type="text">
+                <div *ngIf="customerForm.get('name')!.invalid && customerForm.get('name')!.touched">
+                  Name is required
+                </div>
+              </div>
+            
+              <div>
+                <label for="description">Description</label>
+                <input id="description" formControlName="description" type="text">
+              </div>
+            
+              <div>
+                <label for="imageUrl">Image URL</label>
+                <input id="imageUrl" formControlName="imageUrl" type="text">
+              </div>
+            
+              <div>
+                <label for="isDeleted">Is Deleted</label>
+                <input id="isDeleted" formControlName="isDeleted" type="checkbox">
+              </div>
+            
+              <div>
+                <label for="parentCategoryId">Parent Category ID</label>
+                <input id="parentCategoryId" formControlName="parentCategoryId" type="text">
+              </div>
+              <button type="submit" class="btn btn-secondary" [disabled]="customerForm.invalid" (click)="closeModal()">Ekle</button>
+            </form>
+            
+
+        </div>
+        <!-- <div class="custom-modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div> -->
+      </div>
+    </div>
+  </div>
+  

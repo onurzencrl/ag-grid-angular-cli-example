@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CustomerComponent } from './customer.component';
 import { RouterModule } from '@angular/router';
 import { OnurTableModule } from 'src/app/onur-table/onur-table.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -12,6 +13,7 @@ import { OnurTableModule } from 'src/app/onur-table/onur-table.module';
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     OnurTableModule,
     RouterModule.forChild([
         { path: "", component: CustomerComponent }

@@ -1,0 +1,117 @@
+<app-top-header></app-top-header>
+<div class="container" style="margin-top: 35px">
+  <div class="orders-container">
+    <div class="res-sidebar">
+    <app-user-info-sidebar> </app-user-info-sidebar>
+  </div>
+    <main   style="margin-bottom: 250px;" class="orders-content">
+      <h1>Siparişlerim</h1>
+      <div class="order-filters">
+        <button 
+          class="filter-btn" 
+          [class.active]="orderState === null"
+          (click)="filterOrders(null)">Tümü</button>
+        <button 
+          class="filter-btn" 
+          [class.active]="orderState === EnumOrderState.waiting"
+          (click)="filterOrders(EnumOrderState.waiting)">Devam edenler</button>
+        <button 
+          class="filter-btn" 
+          [class.active]="orderState === EnumOrderState.Unpaid"
+          (click)="filterOrders(EnumOrderState.Unpaid)">İptaller</button>
+        <button 
+          class="filter-btn" 
+          [class.active]="orderState === EnumOrderState.Completed"
+          (click)="filterOrders(EnumOrderState.Completed)">İadeler</button>
+      
+        <!-- Repeat similar logic for PaymentType buttons -->
+        <button 
+          class="filter-btn" 
+          [class.active]="paymentTypes === EnumPaymentTypes.CreditCart"
+          (click)="filterPayments(EnumPaymentTypes.CreditCart)">Kredi Kartı</button>
+        <button 
+          class="filter-btn" 
+          [class.active]="paymentTypes === EnumPaymentTypes.Eft"
+          (click)="filterPayments(EnumPaymentTypes.Eft)">EFT</button>
+      </div>
+      
+      <!-- No Orders Message -->
+      <div *ngIf="orders.length === 0" class="no-orders">
+        <img src="balloon-placeholder.png" alt="No orders" />
+        <h2>
+          Hiç siparişin yok ama şimdi alışverişe başlamak için çok güzel bir an.
+        </h2>
+        <p>Hepsiburada'da milyonlarca ürün seni bekliyor.</p>
+        <button style="margin:auto;" routerLink="/" class="start-shopping-btn">Alışverişe başla</button>
+      </div>
+
+      <!-- Orders List -->
+      <div *ngIf="filteredOrders.length > 0" class="orders-list">
+        <h2>Mevcut Siparişleriniz</h2>
+        <div *ngFor="let order of filteredOrders" class="order-card">
+          <!-- Sipariş Başlığı -->
+          <div class="order-header">
+            <div class="order-info">
+              <h3>Sipariş No: {{ order.orderNumber }}</h3>
+              <span class="order-date">{{ order.orderDate | date: 'dd/MM/yyyy' }}</span>
+            </div>
+            <div class="order-status-container">
+              <span class="order-status">{{ getOrderStatus(order.orderState) }}</span>
+              <span class="payment-type">{{ getPaymentType(order.paymentTypes) }}</span>
+            </div>
+          </div>
+      
+          <!-- Sipariş Ürün Detayları -->
+          <div class="order-details">
+            <div *ngFor="let detail of order.orderDetails" class="order-product">
+              <img [src]="detail.product?.imageUrl" alt="{{ detail.product?.name }}" class="product-image" />
+              <div class="product-info">
+                <h4>{{ detail.product?.name }}</h4>
+                <p class="product-description">{{ detail.product?.description }}</p>
+                <div class="product-meta">
+                  <span class="order-quantity">Adet: {{ detail.count }}</span>
+                  <span class="order-price">{{ detail.totalPrice }} TL</span>
+                </div>
+              </div>
+              <!-- Değerlendir Butonu -->
+              <div class="product-actions">
+                <button (click)="openReviewModal(detail)" class="evaluate-btn">Değerlendir</button>
+              </div>
+            </div>
+          </div>
+      
+          <div class="order-total">
+            <h4>Toplam Fiyat: {{ order.totalPrice }} TL</h4>
+          </div>
+        </div>
+      </div>
+      
+      
+    </main>
+  </div>
+</div>
+
+
+<!-- Review Popup Modal -->
+<div class="review-modal" *ngIf="showReviewModal">
+  <div class="review-modal-content">
+    <span class="close" (click)="closeReviewModal()">&times;</span>
+    
+    <h2>Ürünü Değerlendir</h2>
+
+    <!-- Yıldızlar -->
+    <div class="stars">
+      <i class="fa fa-star" 
+         *ngFor="let star of stars; let i = index" 
+         [class.filled]="i < selectedRating"
+         (click)="selectRating(i + 1)">
+      </i>
+    </div>
+
+    <!-- Yorum -->
+    <textarea [(ngModel)]="reviewComment" placeholder="Yorumunuzu yazın..." class="review-textarea"></textarea>
+
+    <!-- Gönder Butonu -->
+    <button (click)="submitReview()" class="submit-review-btn">Gönder</button>
+  </div>
+</div>

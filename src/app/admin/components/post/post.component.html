@@ -1,0 +1,123 @@
+<button
+  type="button"
+  class="btn btn-primary"
+  (click)="openModal()"
+  data-toggle="modal"
+  data-target="#customModal"
+>
+  Add Row
+</button>
+<button
+  type="button"
+  class="btn btn-primary"
+  (click)="deleteRow()"
+  data-toggle="modal"
+  data-target="#customModal"
+>
+  Delete Selected Row
+</button>
+
+<ox-rich-grid
+  [bindForEdit]="columnDefs"
+  [bindForRowData]="rowData"
+  rowSelection="multiple"
+  [class]="themeClass"
+>
+</ox-rich-grid>
+
+<div class="custom-modal" id="customModal" >
+  <div class="custom-modal-dialog" role="document">
+    <div class="custom-modal-content" style="width: 1000px;  margin-left: -260px !important;">
+      <div class="custom-modal-header">
+        <h5 class="custom-modal-title">Modal title</h5>
+        <button
+          type="button"
+          class="close"
+          (click)="closeModal()"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="custom-modal-body">
+        <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+          <div>
+            <label for="title">Name</label>
+            <input id="name" formControlName="title" type="text" />
+         
+          </div>
+        
+          <!-- Toolbar for Quill Editor -->
+          <div quill-editor-toolbar>
+            <span class="ql-formats">
+              <button class="ql-bold" [title]="'Bold'"></button>
+              <button class="ql-italic" [title]="'Italic'"></button>
+              <button class="ql-underline" [title]="'Underline'"></button>
+              <button class="ql-strike" [title]="'Strikethrough'"></button>
+            </span>
+        
+            <span class="ql-formats">
+              <select class="ql-header" [title]="'Header'">
+                <option value="1"></option>
+                <option value="2"></option>
+                <option value="3"></option>
+                <option value="4"></option>
+                <option value="5"></option>
+                <option value="6"></option>
+                <option selected></option>
+              </select>
+              <button class="ql-blockquote" [title]="'Blockquote'"></button>
+            </span>
+        
+            <span class="ql-formats">
+              <button class="ql-list" value="ordered" [title]="'Ordered List'"></button>
+              <button class="ql-list" value="bullet" [title]="'Bullet List'"></button>
+            </span>
+        
+            <span class="ql-formats">
+              <button class="ql-indent" value="-1" [title]="'Decrease Indent'"></button>
+              <button class="ql-indent" value="+1" [title]="'Increase Indent'"></button>
+            </span>
+        
+            <span class="ql-formats">
+              <select class="ql-align" [title]="'Align'">
+                <option selected></option>
+                <option value="center"></option>
+                <option value="right"></option>
+                <option value="justify"></option>
+              </select>
+            </span>
+        
+            <span class="ql-formats">
+              <button class="ql-link" [title]="'Link'"></button>
+              <button class="ql-image" [title]="'Image'"></button>
+              <button class="ql-video" [title]="'Video'"></button>
+            </span>
+        
+            <span class="ql-formats">
+              <button class="ql-code-block" [title]="'Code Block'"></button>
+              <button class="ql-clean" [title]="'Remove Formatting'"></button>
+            </span>
+          </div>
+        
+          <!-- Quill Editor -->
+          <quill-editor formControlName="content" [modules]="editorModules"></quill-editor>
+        
+          <div>
+            <label for="isDeleted">Is Deleted</label>
+            <input id="isDeleted" formControlName="isDeleted" type="checkbox" />
+          </div>
+        
+          <button
+            type="submit"
+            class="btn btn-secondary"
+            [disabled]="postForm.invalid"
+          >
+            Ekle
+          </button>
+        </form>
+        
+      </div>
+    </div>
+  </div>
+</div>

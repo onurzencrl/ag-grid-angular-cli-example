@@ -11,6 +11,8 @@ import { SkillFilter } from './components/filters/skill.component.filter';
 import { AgGridAngular } from '@ag-grid-community/angular';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { GenderRenderer } from './components/gender-renderer/genderrenderer.component';
 
 
 
@@ -21,15 +23,21 @@ import { FormsModule } from '@angular/forms';
     SortableHeaderComponent,
     HeaderGroupComponent,
     RendererComponent,
+    GenderRenderer,
     ProficiencyFilter,
     SkillFilter
   ],
   imports: [
     CommonModule,
-    BrowserModule,
     FormsModule,
     AgGridAngular
   ],
-  exports : [RichGridComponent]
+  exports : [  RichGridComponent,
+    DateComponent,
+    SortableHeaderComponent,
+    HeaderGroupComponent,
+    RendererComponent,
+    ProficiencyFilter,
+    SkillFilter]
 })
 export class OnurTableModule { }

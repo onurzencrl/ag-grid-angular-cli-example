@@ -1,0 +1,138 @@
+<app-top-header></app-top-header>
+<div class="container" style="margin-top: 35px">
+  <div class="user-info-container">
+    <div class="res-sidebar">
+    <app-user-info-sidebar></app-user-info-sidebar>
+  </div>
+    <main style="margin-bottom: 250px;" class="user-info-content">
+      <h2 class="page-title">Değerlendirmelerim</h2>
+
+      <!-- Kartlar -->
+      <div class="review-summary-cards">
+        <div class="review-card">
+          <p class="review-card-title">
+            Değerlendirmeleriniz Hepsiburada kullanıcıları tarafından
+          </p>
+          <p class="review-card-count">0 <span>kez faydalı bulundu</span></p>
+        </div>
+        <div class="review-card">
+          <p class="review-card-title">
+            Satın aldığınız ve değerlendirmenizi beklediğimiz
+          </p>
+          <p class="review-card-count">0 <span>adet ürün var</span></p>
+        </div>
+      </div>
+
+      <!-- Dinamik Sekme Menüsü -->
+      <div class="review-tabs">
+        <button
+          class="tab"
+          *ngFor="let tab of tabs; let i = index"
+          [class.active]="i === activeTab"
+          (click)="setActiveTab(i)"
+        >
+          {{ tab.title }} ({{
+            i === 0 ? pendingReviews.length : reviewedItems.length
+          }})
+        </button>
+      </div>
+
+      <!-- Dinamik İçerik -->
+      <div class="tab-content">
+        <ng-container *ngIf="activeTab === 0">
+          <div *ngIf="pendingReviews.length === 0" class="empty-state">
+            <img
+              src="https://via.placeholder.com/150"
+              alt="Empty"
+              class="empty-image"
+            />
+            <p>Henüz değerlendirme bekleyen bir ürününüz yok.</p>
+          </div>
+
+          <ul *ngIf="notRevieweds.length > 0" class="review-list">
+            <li
+              *ngFor="let review of notRevieweds"
+              class="review-item pending-review"
+            >
+              <div class="review-product">
+                <img
+                  [src]="review.product.imageUrl"
+                  alt="{{ review.product.name }}"
+                  class="review-product-image"
+                />
+                <div class="review-product-info">
+                  <h4>{{ review.product.name }}</h4>
+                  <p class="review-status">{{ review.reviewStatus }}</p>
+                </div>
+              </div>
+              <button class="evaluate-btn" (click)="openReviewModal(review.product)">
+                Değerlendir
+              </button>
+            </li>
+          </ul>
+        </ng-container>
+
+        <ng-container *ngIf="activeTab === 1">
+          <div *ngIf="reviewedItems.length === 0" class="empty-state">
+            <img
+              src="https://via.placeholder.com/150"
+              alt="Empty"
+              class="empty-image"
+            />
+            <p>Henüz değerlendirdiğiniz bir ürün bulunmamaktadır.</p>
+          </div>
+
+          <ul *ngIf="reviewedItems.length > 0" class="review-list">
+            <li
+              *ngFor="let review of reviewedItems"
+              class="review-item completed-review"
+            >
+              <div class="review-product">
+                <img
+                   [src]="review.product.imageUrl"
+                  alt="{{ review.product.name }}"
+                  class="review-product-image"
+                />
+                <div class="review-product-info">
+                  <h4>{{ review.product.name }}</h4>
+                  <div class="rating-stars">
+                    <i
+                      class="fa fa-star"
+                      *ngFor="let star of [1, 2, 3, 4, 5]; let i = index"
+                      [class.filled]="i + 1 <= review.rating"
+                    ></i>
+                  </div>
+                  
+                </div>
+              </div>
+            </li>
+          </ul>
+        </ng-container>
+      </div>
+    </main>
+  </div>
+</div>
+
+
+<div class="review-modal" *ngIf="showReviewModal">
+  <div class="review-modal-content">
+    <span class="close" (click)="closeReviewModal()">&times;</span>
+    
+    <h2>Ürünü Değerlendir</h2>
+
+    <!-- Yıldızlar -->
+    <div class="stars">
+      <i class="fa fa-star" 
+         *ngFor="let star of stars; let i = index" 
+         [class.filled]="i < selectedRating"
+         (click)="selectRating(i + 1)">
+      </i>
+    </div>
+
+    <!-- Yorum -->
+    <textarea [(ngModel)]="reviewComment" placeholder="Yorumunuzu yazın..." class="review-textarea"></textarea>
+
+    <!-- Gönder Butonu -->
+    <button (click)="submitReview()" class="submit-review-btn">Gönder</button>
+  </div>
+</div>
